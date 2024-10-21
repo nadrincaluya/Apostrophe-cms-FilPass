@@ -1,22 +1,19 @@
 # ApostropheCMS essentials starter kit
 
 ## Getting started
+When cloned follow these steps
 
-This Starter Kit, also known as a boilerplate project, serves as a template for initiating new projects and is intended for use in two main ways:
+1. npm install.
 
-1. **Using Our CLI Tool**: Run our [CLI tool](https://github.com/apostrophecms/cli) to clone this template locally, install its dependencies, and set up an initial admin user. You accomplish this using:
-   
-   `apos create <my-project-name>`
-  
-2. **Manual Setup**: Manually `git clone` this repository and install its dependencies using `npm install`. Add an initial admin user with `node app @apostrophecms/user:add admin admin`.
+2. nvm install 18.
 
-For those who need to create multiple projects with additional base modules, consider [forking this repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks) into your organizational or personal GitHub account. Customize it to fit your needs. To use your customized template, run the following CLI command:
+3. nvm use 18.
 
-  `apos create <project-name> --starter=<repo-name>`
+4. export APOS_MONGODB_URI="mongodb+srv://sampleuser:admin123@cluster0.fgzqdmr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0". You can change the mongobd uri if you want.
 
-Here, `<repo-name>` should be the URL of your forked repository, excluding the `https://github.com/` part.
+5. npm run dev
 
-**Note: This template is NOT designed to be installed into an existing project.**
+
 
 ## Running the project
 
