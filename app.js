@@ -1,5 +1,5 @@
 require('apostrophe')({
-  shortName: 'a3-boilerplate',
+  shortName: 'ApostropheCMS-sample',
   modules: {
     // Apostrophe module configuration
     // *******************************
@@ -11,6 +11,9 @@ require('apostrophe')({
     // have a minimal configuration here to turn them on: `moduleName: {}`
     // ***********************************************************************
     // `className` options set custom CSS classes for Apostrophe core widgets.
+   
+    'newsroom/media-release': {},
+    'newsroom/publications': {},
     '@apostrophecms/rich-text-widget': {
       options: {
         className: 'bp-rich-text'
@@ -29,6 +32,7 @@ require('apostrophe')({
     // `asset` supports the project's webpack build for client-side assets.
     asset: {},
     // The project's first custom page type.
-    'default-page': {}
+    'default-page': {},
+    'row-widget': {}
   }
 });
