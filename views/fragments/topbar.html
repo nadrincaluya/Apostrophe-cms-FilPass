@@ -1,22 +1,89 @@
 {% fragment mainArea() %}
-  <section class="bg-dark text-white topbar">
-    <div class="align-items-center container-fluid d-flex justify-content-evenly logo-block" style="min-height: 100%; height: 100%;">
-      <div class="align-items-center d-flex justify-content-between mb-auto mt-3 row" style="width: 100%;">
-        <div class="col-md-3 mb-3 ps-2 text-center">
-          <div class="lh-1 logo-block">
-            <a href="{{ data.home._url }}" class="text-decoration-none"><span class="tight">{{ __t('apostropheProductReviews') }}</span></a>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPAS Header</title>
+    <style>
+        /* Main header styling */
+        .header {
+            background-color: #002F6C; /* Dark blue background */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        /* Logo and text */
+        .header .logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .header .logo h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .header .logo span {
+            font-size: 0.8rem;
+            color: black; /* Black color for "Member of FPAP" text */
+        }
+
+        /* Navigation bar */
+        .nav-bar {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+        }
+
+        .nav-bar a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0 15px;
+        }
+
+        .nav-bar a:hover {
+            color: #002F6C; /* Dark blue hover color */
+        }
+
+        /* Login link */
+        .header .login {
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .header .login:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>FPAS</h1>
+            <p>FINANCIAL PLANNING ASSOCIATION OF SINGAPORE</p>
+            <span>Member of FPAP</span>
         </div>
-        <div class="col-md-3 mb-3 text-center">
-          <div class="input-group me-1 ms-1 w-100">
-            <div class="input-group-text">🔎</div>
-            <input class="form-control" placeholder="{{ __t('findTheBest') }}...">
-          </div>
-        </div>
-        <div class="col-md-3 mb-3 text-center">
-          <button type="button" class="btn btn-info text-white">{{ __t('becomeAMember') }}</button>
-        </div>
-      </div>
-    </div>
-  </section>
+        <a href="#" class="login">LOGIN</a>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="#">About Us</a>
+        <a href="#">CFP® Certification</a>
+        <a href="#">Consumers</a>
+        <a href="#">Financial Planner Awards</a>
+        <a href="#">Events</a>
+        <a href="#">Newsroom</a>
+        <a href="#">Contact Us</a>
+    </nav>
+</body>
+</html>
+
 {% endfragment %}

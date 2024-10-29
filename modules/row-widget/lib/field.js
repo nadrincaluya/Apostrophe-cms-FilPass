@@ -1,4 +1,4 @@
-const fullConfig = require('../../../lib/area');
+const { fullConfig } = require('../../../lib/area');
 
 const fields = {
   columns: {
@@ -23,6 +23,14 @@ const fields = {
         value: 4
       },
       {
+        label: 'Five equal-width columns',
+        value: 5  // New option for five columns
+      },
+      {
+        label: 'Six equal-width columns',
+        value: 6  // New option for six columns
+      },
+      {
         label: 'Two columns, 33% and 66%',
         value: '4-8'
       },
@@ -42,9 +50,18 @@ const fields = {
   }
 };
 
-const colsIf = [ null, false, [ 2, 3, 4, '4-8', '8-4', '3-9', '9-3' ], [ 3, 4 ], [ 4 ] ];
+// Update this array to include conditions for 6 columns
+const colsIf = [ 
+  null, 
+  false, 
+  [ 2, 3, 4, 5, 6, '4-8', '8-4', '3-9', '9-3' ], 
+  [ 3, 4, 5, 6 ], 
+  [ 4, 5, 6 ], 
+  [ 5, 6 ], 
+  [ 6 ] 
+];
 
-for (let i = 1; i <= 4; i++) {
+for (let i = 1; i <= 6; i++) {
   fields[`area${i}`] = {
     label: `Area ${i}`,
     type: 'area',
@@ -62,8 +79,6 @@ for (let i = 1; i <= 4; i++) {
       }
     })
   };
-  // uncomment to see the full output for each area
-  // console.log(`Output for i = ${i}:`, fields);
 }
 
 module.exports = {
