@@ -26,7 +26,10 @@ module.exports = {
           '4-8': [ 4, 8 ],      // Two columns, 33% and 66%
           '8-4': [ 8, 4 ],      // Two columns, 66% and 33%
           '3-9': [ 3, 9 ],      // Two columns, 25% and 75%
-          '9-3': [ 9, 3 ]       // Two columns, 75% and 25%
+          '9-3': [ 9, 3 ],       // Two columns, 75% and 25%
+          '2-4-2-4': [ 2, 4,2,4 ],       // Two columns, 
+          '1-3-1-3': [ 1, 3,1,3 ],
+          '1-2-1-2':[1,2,1,2] 
         };
         return layoutMap[layout] || [ 12 ];
       }

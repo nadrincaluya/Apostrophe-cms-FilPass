@@ -45,6 +45,18 @@ const fields = {
       {
         label: 'Two columns, 75% and 25%',
         value: '9-3'
+      },
+      {
+        label: 'Two columns, 2-4',
+        value: '2-4-2-4'
+      },
+      {
+        label: 'Two columns, 1-3',
+        value: '1-3-1-3'
+      },
+      {
+        label: 'Two columns, 1-2',
+        value: '1-2-1-2'
       }
     ]
   }
@@ -54,7 +66,7 @@ const fields = {
 const colsIf = [ 
   null, 
   false, 
-  [ 2, 3, 4, 5, 6, '4-8', '8-4', '3-9', '9-3' ], 
+  [ 2, 3, 4, 5, 6, '4-8', '8-4', '3-9', '9-3' ,'2-4-2-4','1-3-1-3','1-2-1-2'], 
   [ 3, 4, 5, 6 ], 
   [ 4, 5, 6 ], 
   [ 5, 6 ], 

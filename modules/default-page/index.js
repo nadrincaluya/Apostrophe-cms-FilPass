@@ -11,7 +11,8 @@ module.exports = {
         type: 'area',
         options: {
           widgets: {
-            fullConfig
+            fullConfig,
+            'button-widget':{}
           }
         }
       }

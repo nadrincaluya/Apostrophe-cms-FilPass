@@ -13,3 +13,9 @@ module that has a ui/src directory.
 
 // Add theme framework styles
 @import 'bootstrap';
+
+@import './scss/_button';
+
+@import './scss/_fonts';
+
+@import './scss/image-with-text';
