@@ -1,0 +1,19 @@
+.image-overlay-widget {
+    position: relative;
+  }
+  
+  .image-overlay-widget img {
+    width: 100%; /* Default width */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 0; /* Align overlay to the left */
+    transform: translateY(-50%); /* Center vertically */
+    text-align: left; /* Align text to the left */
+    padding-left: 10px; /* Add padding to offset text from image edge */
+    color: white;
+  }
+  

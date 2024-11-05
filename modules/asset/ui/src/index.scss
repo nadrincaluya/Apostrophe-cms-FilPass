@@ -6,8 +6,10 @@ module that has a ui/src directory.
 
 // Add theme SASS variables
 @import './scss/_theme-settings';
+
 // Add theme fonts and base styles
 @import './scss/_theme-main';
+
 // Add styling for theme components
 @import './scss/_theme-topbar';
 
@@ -19,3 +21,9 @@ module that has a ui/src directory.
 @import './scss/_fonts';
 
 @import './scss/image-with-text';
+
+@import './scss/image-size';
+
+@import './scss/image-overlay';
+
+@import './scss/table-widget';

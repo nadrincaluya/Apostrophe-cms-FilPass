@@ -1,0 +1,20 @@
+/* modules/table-widget/styles.css */
+.table-widget {
+    margin-bottom: 20px;
+  }
+  
+  .custom-table-widget {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .custom-table-widget th, .custom-table-widget td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .custom-table-widget th {
+    background-color: #f2f2f2;
+  }
+  

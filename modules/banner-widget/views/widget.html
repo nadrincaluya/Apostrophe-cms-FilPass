@@ -1,0 +1,25 @@
+{% set image = apos.image.first(data.widget.image) %}
+
+<div class="image-overlay-widget" style="position: relative;">
+  {% if image %}
+    <img 
+      src="{{ apos.attachment.url(image, { size: 'original' }) }}" alt="{{ image.alt or '' }}"class="custom-image"style="{% if data.widget.imageWidth %}width: {{ data.widget.imageWidth }};
+       {% else %}width: 100%;{% endif %}
+        {% if data.widget.imageHeight %}height: {{ data.widget.imageHeight }};{% else %}height: auto;{% endif %}
+      ">
+  {% endif %}
+  
+  <div class="overlay-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+    {% if data.widget.title %}
+      <h2 style="text-align: left;" class="{{ data.widget.textSize }} {{ data.widget.textColor }}">{{ data.widget.title }}</h2>
+    {% endif %}
+    
+    {% if data.widget.description %}
+      <p class="{{ data.widget.textColor }}">{{ data.widget.description }}</p>
+    {% endif %}
+    
+    {% if data.widget.buttonText and data.widget.buttonUrl %}
+      <a href="{{ data.widget.buttonUrl }}" class="btn {{ data.widget.style }}">{{ data.widget.buttonText }}</a>
+    {% endif %}
+  </div>
+</div>

@@ -40,6 +40,8 @@
   "author": "Apostrophe Technologies, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@apostrophecms/form": "^1.4.2",
+    "@bodonkey/rich-text-enhancement": "^1.0.2",
     "apostrophe": "^4.0.0",
     "bootstrap": "^5.3.3",
     "normalize.css": "^8.0.1"

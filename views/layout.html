@@ -12,16 +12,12 @@
   {% endif %}
 {% endblock %}
 
-{% block extraHead %}
-<link rel="icon"  href="{{ apos.asset.url('/modules/asset/favicon/favicon-512.png')}}">
-
-{% endblock %}
 
 {% block beforeMain %}
-  <header>
+  <header >
     {% render topbar.mainArea() %}
   </header>
-  <main class="pr-main">
+  <main class="pr-main original-size-image">
 {% endblock %}
 
 {% block afterMain %}

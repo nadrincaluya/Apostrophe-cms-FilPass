@@ -1,9 +1,11 @@
 require('apostrophe')({ 
   shortName: 'ApostropheCMS-sample',
+  bundles: [ '@bodonkey/rich-text-enhancement' ],
   modules: {
+   
     'apostrophe-headless': {},
 
-    // Configuration for apostrophe-pieces-pages to support the blog page type
+
     'apostrophe-pieces-pages': {
       options: {
         addPageTypes: [
@@ -15,15 +17,11 @@ require('apostrophe')({
       }
     },
 
-    // Other module configurations
-    'newsroom/media-release': {},
-    'newsroom/publications': {},
-   
-   
+    'rich-text-color': {},
+    'rich-text-font': {},
     'asset': {},
     'default-page': {},
     'row-widget': {},
-    'deal-widget': {},
     'review': {},
     'review-page': {},
     'button-widget': {},
@@ -31,5 +29,9 @@ require('apostrophe')({
     'media': {},
     'publications': {},
     'color': {},
+    'imagesize-widget':{},
+    'banner-widget':{},
+    'table-widget':{}
+    
   }
 });

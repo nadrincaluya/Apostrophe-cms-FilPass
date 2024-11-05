@@ -1,0 +1,23 @@
+
+{% set image = apos.image.first(data.widget.image) %}
+
+
+{% if image %}
+
+  {# {{ apos.log('image data', image) }} #}
+  {% set imageUrl = apos.attachment.url(image, {size: 'one-sixth' }) %}
+  {% set altText = image.alt %}
+{% else %}
+  {% set imageUrl = 'https://picsum.photos/200' %}
+{% endif %}
+
+<section >
+  <div >
+    <img class="image-text-widget {{ data.widget.layout }} img-fluid" src="{{ imageUrl }}" alt="{{ altText }}">
+  </div>
+
+  <div class="text">
+    {% area data.widget, 'text' %}
+  </div>
+</section>
+
