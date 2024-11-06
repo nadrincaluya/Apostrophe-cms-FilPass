@@ -4,7 +4,9 @@ require('apostrophe')({
   modules: {
    
     'apostrophe-headless': {},
-
+        '@apostrophecms/form': {},
+    '@apostrophecms/form-widget': {}
+    ,
 
     'apostrophe-pieces-pages': {
       options: {
@@ -29,9 +31,11 @@ require('apostrophe')({
     'media': {},
     'publications': {},
     'color': {},
-    'imagesize-widget':{},
+    //'imagesize-widget':{},
     'banner-widget':{},
-    'table-widget':{}
+    'table-widget':{},
+    'navigation-widget':{},
+    'form-widget':{}
     
   }
 });

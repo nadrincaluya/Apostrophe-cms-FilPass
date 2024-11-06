@@ -1,2 +1,23 @@
-<section data-form-widget>
-</section>
+<section class="contact-form-widget">
+    <h2>{{ data.widget.title }}</h2>
+    <form method="POST" action="/submit-form">
+      {% for field in data.widget.fields %}
+        <div class="form-group">
+          <label for="{{ field.name }}">{{ field.label }}</label>
+          {% if field.type === 'text' or field.type === 'email' or field.type === 'tel' %}
+            <input type="{{ field.type }}" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control" placeholder="{{ field.label }}">
+          {% elseif field.type === 'select' %}
+            <select id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control">
+              {% for choice in field.choices %}
+                <option value="{{ choice.value }}">{{ choice.label }}</option>
+              {% endfor %}
+            </select>
+          {% elseif field.type === 'textarea' %}
+            <textarea id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control" placeholder="{{ field.label }}"></textarea>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </section>
+  

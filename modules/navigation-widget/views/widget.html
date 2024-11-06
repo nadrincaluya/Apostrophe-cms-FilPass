@@ -1,0 +1,14 @@
+<!-- lib/modules/navigation-widget/views/widget.html -->
+<nav class="navigation-widget">
+    <ul>
+      {% for link in data.widget.links %}
+        <li class="{% if link.isHighlighted %}highlighted{% endif %}">
+          <a href="{{ link.url }}">{{ link.label }}</a>
+        </li>
+        {% if not loop.last %}
+          <hr class="navigation-divider">
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+  
