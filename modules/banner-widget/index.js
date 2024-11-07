@@ -19,11 +19,6 @@ module.exports = {
         type: 'string',
         label: 'Title'
       },
-      description: {
-        type: 'string',
-        textarea: true,
-        label: 'Description'
-      },
       buttonText: {
         type: 'string',
         label: 'Button Text'
@@ -52,6 +47,48 @@ module.exports = {
         ],
         def: 'text-black'
       },
+      imageAlignment: {
+        type: 'select',
+        label: 'Image Alignment',
+        choices: [
+          { label: 'Left', value: 'image-left' },
+          { label: 'Center', value: 'image-center' },
+          { label: 'Right', value: 'image-right' }
+        ],
+        def: 'center'  // Default alignment is center
+      },
+      textAlignment: {
+        type: 'select',
+        label: 'Text Alignment',
+        choices: [
+          { label: 'Top Left', value: 'overlay-top-left' },
+          { label: 'Top Center', value: 'overlay-top-center' },
+          { label: 'Top Right', value: 'overlay-top-right' },
+          { label: 'Center Left', value: 'overlay-center-left' },
+          { label: 'Center', value: 'overlay-center' },
+          { label: 'Center Right', value: 'overlay-center-right' },
+          { label: 'Bottom Left', value: 'overlay-bottom-left' },
+          { label: 'Bottom Center', value: 'overlay-bottom-center' },
+          { label: 'Bottom Right', value: 'overlay-bottom-right' }
+        ],
+        def: 'overlay-center' // Default alignment is center
+      },
+      buttonAlignment: {
+        type: 'select',
+        label: 'Button Alignment',
+        choices: [
+          { label: 'Top Left', value: 'overlay-top-left' },
+          { label: 'Top Center', value: 'overlay-top-center' },
+          { label: 'Top Right', value: 'overlay-top-right' },
+          { label: 'Center Left', value: 'overlay-center-left' },
+          { label: 'Center', value: 'overlay-center' },
+          { label: 'Center Right', value: 'overlay-center-right' },
+          { label: 'Bottom Left', value: 'overlay-bottom-left' },
+          { label: 'Bottom Center', value: 'overlay-bottom-center' },
+          { label: 'Bottom Right', value: 'overlay-bottom-right' }
+        ],
+        def: 'overlay-center' // Default alignment is center
+      },
       imageWidth: {
         type: 'string',
         label: 'Image Width',
@@ -62,6 +99,21 @@ module.exports = {
         label: 'Image Height',
         help: 'Specify the image height (e.g., auto, 300px).'
       }
+    },
+    group: {
+      content: {
+        label: 'Content',
+        fields: [ 'image', 'title', 'description', 'buttonText', 'buttonUrl' ]
+      },
+      style: {
+        label: 'Style',
+        fields: [ 'style', 'textColor', 'imageWidth', 'imageHeight' ]
+      },
+      alignment: {
+        label: 'Alignment',
+        fields: [ 'imageAlignment', 'textAlignment', 'buttonAlignment' ]
+      }
     }
+  
   }
 };

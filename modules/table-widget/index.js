@@ -6,10 +6,25 @@ module.exports = {
   },
   fields: {
     add: {
-      title: {
-        type: 'string',
-        label: 'Table Title',
-        required: true
+      width: {
+        type: 'select',
+        label: 'Content Width',
+        choices: [
+          { label: 'Full Width', value: '100' },
+          { label: '75%', value: '75' },
+          { label: '50%', value: '50' },
+          { label: '25%', value: '25' }
+        ]
+      },
+      alignment: {
+        type: 'select',
+        label: 'Content Alignment',
+        choices: [
+          { label: 'Left', value: 'table-left' },
+          { label: 'Center', value: 'table-center' },
+          { label: 'Right', value: 'table-right' }
+        ],
+        def: 'center'  // Default alignment is center
       },
       rows: {
         type: 'array',

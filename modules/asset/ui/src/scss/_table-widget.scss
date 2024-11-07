@@ -1,11 +1,13 @@
 /* modules/table-widget/styles.css */
 .table-widget {
     margin-bottom: 20px;
+
   }
   
   .custom-table-widget {
-    width: 100%;
     border-collapse: collapse;
+    margin-left: 
+    auto; margin-right: 0;
   }
   
   .custom-table-widget th, .custom-table-widget td {
@@ -17,4 +19,6 @@
   .custom-table-widget th {
     background-color: #f2f2f2;
   }
+
+
   

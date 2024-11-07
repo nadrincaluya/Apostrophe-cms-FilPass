@@ -35,7 +35,7 @@ require('apostrophe')({
     'banner-widget':{},
     'table-widget':{},
     'navigation-widget':{},
-    'form-widget':{}
-    
+    'form-widget':{},
+    'spacing-widget':{}
   }
 });

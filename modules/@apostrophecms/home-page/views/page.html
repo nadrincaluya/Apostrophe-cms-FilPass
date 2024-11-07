@@ -1,17 +1,7 @@
 {% extends "layout.html" %}
 
 {% block main %}
-<section class="d-flex justify-content-center me-auto me-md-5 ms-auto ms-md-5">
-  <container class="articles container">
-    {% area data.page, 'topArea' %}
-    <!--{{ apos.log('this is the page data', data.page)}}-->
-  </container>
-</section>
-<section class="d-flex justify-content-center me-auto me-md-5 ms-auto ms-md-5">
-  <container class="articles container">
-    {% area data.page, 'bottomArea' %}
-  </container>
-</section>
-
-
+  {% area data.page, 'fullSize' %}
+  {% area data.page, 'topArea' %}
+  {% area data.page, 'bottomArea' %}
 {% endblock %}

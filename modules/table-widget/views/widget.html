@@ -1,7 +1,6 @@
 <!-- modules/table-widget/views/widget.html -->
-<div class="table-widget">
-    <h2>{{ data.widget.title }}</h2>
-    <table class="custom-table-widget">
+
+    <table class="custom-table-widget {{data.widget.alignment}}" style="width: {{data.widget.width}}%;">
       {% for row in data.widget.rows %}
         <tr style="background-color: {{ row.rowBackgroundColor }};">
           {% for cell in row.cells %}
@@ -15,5 +14,5 @@
         </tr>
       {% endfor %}
     </table>
-  </div>
+
   

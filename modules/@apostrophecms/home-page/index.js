@@ -33,6 +33,18 @@ module.exports = {
             
           
         }
+      },
+      fullSize:{
+        type: 'area',
+        label: 'Bottom Area',
+        options: {
+         widgets: fullConfig
+
+         
+               
+            
+          
+        }
       }
     }
   }

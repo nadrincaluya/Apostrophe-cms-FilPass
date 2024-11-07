@@ -1,0 +1,85 @@
+//Table alignment
+.table-left{
+    margin-left:0 ;
+    margin-right: auto;
+  }
+.table-center{
+    margin: 0 auto; 
+}
+  
+.table-right{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+//Image alignment
+.image-left{
+    text-align: left;
+}
+.image-right{
+    text-align: right;
+}
+.image-center{
+    text-align: center;
+}
+/* Text and button for overlay widget alignment */
+/* Top alignments */
+.overlay-top-left {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    text-align: left;
+}
+.overlay-top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+.overlay-top-right {
+    top: 0;
+    right: 0;
+    transform: translate(0, 0);
+    text-align: right;
+}
+
+/* Center alignments */
+.overlay-center-left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    text-align: left;
+}
+.overlay-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.overlay-center-right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    text-align: right;
+}
+
+/* Bottom alignments */
+.overlay-bottom-left {
+    bottom: 0;
+    left: 0;
+    transform: translate(0, 0);
+    text-align: left;
+}
+.overlay-bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+.overlay-bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: translate(0, 0);
+    text-align: right;
+}
+
