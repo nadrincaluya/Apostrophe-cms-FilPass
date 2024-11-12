@@ -1,12 +1,31 @@
+const { fullConfig } = require('../../lib/area');
+
 module.exports = {
   extend: '@apostrophecms/piece-page-type',
   options: {
-    label: 'Review Page',
-    pluralLabel: 'Review Pages',
+    label: 'Publication Page',
+    pluralLabel: 'Publication Pages',
   },
   fields: {
-    add: {},
-    group: {}
+    add: {
+      mediaReleaseArea:{
+        type:'area',
+        label: 'Content area',
+        options: {
+          widgets: {
+            banner:{},
+
+          },
+      }
+    }
+    
+    },
+    group: {
+      basics: {
+        label: 'Basics',
+        fields: [ 'displayCategory' ]
+      }
+    }
   },
   methods(self) {
     return {
@@ -44,13 +63,18 @@ module.exports = {
       chooseParentPage(_super, pages, piece) {
         // if the piece has a category and there is more than one page, assign the correct one
         if (piece.category && pages.length > 1) {
+          // grab the piece.category and assign it to a variable
+          // set to `all` if it's not a string
           const pieceCategory = typeof piece.category === 'string' ? piece.category : 'all';
-          // find the page with the correct category or use the default behavior
+          // find the page with the correct category
+          // if we didn't find a page with the correct category
+          // use the `chooseParentPage` method of the parent module
+          // to assign the fallback page
           return pages.find((page) => page.displayCategory === pieceCategory) || _super(pages, piece);
         }
         // if only a single page, use the default behavior
         return _super(pages, piece);
       }
     };
-  }
+  },
 };

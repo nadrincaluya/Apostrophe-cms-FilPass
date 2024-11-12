@@ -1,0 +1,25 @@
+.module-piece {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+  }
+  .module-image {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .module-details {
+    flex: 2;
+  }
+  .module-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  ////////
+  
+  

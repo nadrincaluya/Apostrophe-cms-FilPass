@@ -19,13 +19,18 @@ module.exports = {
         type: 'string',
         label: 'Title'
       },
+      description: {
+        type: 'string',
+        label: 'Description'
+      },
       buttonText: {
         type: 'string',
         label: 'Button Text'
       },
       buttonUrl: {
         type: 'string',
-        label: 'Button URL'
+        label: 'Button URL',
+        help: 'this is help'
       },
       style: {
         type: 'select',
@@ -55,7 +60,7 @@ module.exports = {
           { label: 'Center', value: 'image-center' },
           { label: 'Right', value: 'image-right' }
         ],
-        def: 'center'  // Default alignment is center
+        def: 'center'
       },
       textAlignment: {
         type: 'select',
@@ -71,7 +76,7 @@ module.exports = {
           { label: 'Bottom Center', value: 'overlay-bottom-center' },
           { label: 'Bottom Right', value: 'overlay-bottom-right' }
         ],
-        def: 'overlay-center' // Default alignment is center
+        def: 'overlay-center'
       },
       buttonAlignment: {
         type: 'select',
@@ -87,7 +92,7 @@ module.exports = {
           { label: 'Bottom Center', value: 'overlay-bottom-center' },
           { label: 'Bottom Right', value: 'overlay-bottom-right' }
         ],
-        def: 'overlay-center' // Default alignment is center
+        def: 'overlay-center'
       },
       imageWidth: {
         type: 'string',
@@ -98,22 +103,33 @@ module.exports = {
         type: 'string',
         label: 'Image Height',
         help: 'Specify the image height (e.g., auto, 300px).'
+      },
+      overlaySpacingTop: {
+        type: 'integer',
+        label: 'Vertical Spacing Top (px)'
+      },
+      overlaySpacingBottom: {
+        type: 'integer',
+        label: 'Vertical Spacing Bottom (px)'
       }
     },
     group: {
       content: {
         label: 'Content',
-        fields: [ 'image', 'title', 'description', 'buttonText', 'buttonUrl' ]
+        fields: ['image', 'title', 'description', 'buttonText', 'buttonUrl']
       },
       style: {
         label: 'Style',
-        fields: [ 'style', 'textColor', 'imageWidth', 'imageHeight' ]
+        fields: ['style', 'textColor', 'imageWidth', 'imageHeight']
       },
       alignment: {
         label: 'Alignment',
-        fields: [ 'imageAlignment', 'textAlignment', 'buttonAlignment' ]
+        fields: ['imageAlignment', 'textAlignment', 'buttonAlignment']
+      },
+      spacing: {
+        label: 'Vertical Spacing',
+        fields: ['overlaySpacingTop', 'overlaySpacingBottom']
       }
     }
-  
   }
 };

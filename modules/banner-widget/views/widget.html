@@ -1,5 +1,9 @@
 {% set image = apos.image.first(data.widget.image) %}
 
+{%if data.widget.overlaySpacingTop %}
+<div class="spacing-widget" style="padding-top: {{ data.widget.overlaySpacingTop }}px;"></div>
+{% endif %}
+
 <div class="image-overlay-widget {{ data.widget.imageAlignment }}" style="position: relative;">
   {% if image %}
     <img 
@@ -42,3 +46,7 @@
     {% endif %}
   {% endif %}
 </div>
+
+{%if data.widget.overlaySpacingBottom %}
+<div class="spacing-widget" style="padding-bottom: {{ data.widget.overlaySpacingBottom }}px;"></div>
+{% endif %}

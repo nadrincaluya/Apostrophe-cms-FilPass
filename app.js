@@ -24,18 +24,20 @@ require('apostrophe')({
     'asset': {},
     'default-page': {},
     'row-widget': {},
-    'review': {},
-    'review-page': {},
+    media: {},
+    'media-page': {},
+    publication:{},
+    'publication-page':{}
+    ,
     'button-widget': {},
     'article': {},
-    'media': {},
-    'publications': {},
     'color': {},
     //'imagesize-widget':{},
     'banner-widget':{},
     'table-widget':{},
     'navigation-widget':{},
     'form-widget':{},
-    'spacing-widget':{}
+    'spacing-widget':{},
+
   }
 });

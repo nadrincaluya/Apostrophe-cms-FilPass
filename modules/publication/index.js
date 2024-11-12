@@ -3,8 +3,8 @@ const { fullConfig } = require('../../lib/area');
 module.exports = {
   extend: '@apostrophecms/piece-type',
   options: {
-    label: 'Media Release',
-    pluralLabel: 'Media Releases',
+    label: 'Publication',
+    pluralLabel: 'Publications',
     i18n: {
       browser: true
     },
