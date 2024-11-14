@@ -38,6 +38,10 @@ require('apostrophe')({
     'navigation-widget':{},
     'form-widget':{},
     'spacing-widget':{},
+    events:{},
+    'events-page':{},
+    '@apostrophecms/open-graph': {}
+
 
   }
 });

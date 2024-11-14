@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+{% area data.page, 'bannerArea' %}
+<div class="events-page">
+  <div class="events-banner">
+    <h1>Events</h1>
+  </div>
+
+  <div class="events-header">
+    <button class="nav-button" onclick="navigatePrevious()">←</button>
+    <button class="current-month-button" onclick="showCurrentMonth()">Current Month</button>
+    <button class="calendar-view-button">Calendar View</button>
+    <button class="nav-button" onclick="navigateNext()">→</button>
+    <h2 id="current-month-label">{{ apos.template.getCurrentMonth() }} {{ apos.template.getCurrentYear() }}</h2>
+  </div>
+
+
+  <div class="event-list" id="event-list" data-month="{{ apos.template.getCurrentMonth() }}" data-year="{{ apos.template.getCurrentYear() }}">
+    {% for event in data.pieces %}
+    {% set eventMonth = event.date | date('MMMM') %}
+    {% set eventYear = event.date | date('YYYY') %}
+    
+    <!-- Only display events that match the current eventMonth and eventYear -->
+    <div class="event-card" data-month="{{ eventMonth }}" data-year="{{ eventYear }}">
+      {% set image = apos.image.first(event.bannerImage) %}
+      {% if image %}
+        {% set imageUrl = apos.attachment.url(image, { width: 328, height: 184 }) %}
+      {% else %}
+        {% set imageUrl = 'https://picsum.photos/200' %}
+      {% endif %}
+
+      <img src="{{ imageUrl }}" alt="{{ event.imageAltText }}" class="img-fluid me-4" style="width: 328px; height: 184px; border-radius: 8px;">
+
+      <div class="event-details">
+        <p class="event-date">{{ event.date | date('D MMMM YYYY') }}</p>
+        <p class="event-date">{{ event.time }}</p>
+        <h3><a href="{{ event._url }}">{{ event.title }}</a></h3>
+        <p>{{ event.description }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  let currentMonthIndex = new Date().getMonth();  // Get current month index (0-11)
+  let currentYear = new Date().getFullYear();     // Get current year
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  function updateMonth() {
+    document.getElementById("current-month-label").textContent = `${months[currentMonthIndex]} ${currentYear}`;
+    // Update the data-month and data-year attributes of the event-list container
+    document.getElementById("event-list").setAttribute("data-month", months[currentMonthIndex]);
+    document.getElementById("event-list").setAttribute("data-year", currentYear);
+    filterEventsByMonthAndYear(months[currentMonthIndex], currentYear);
+  }
+
+  function navigateNext() {
+    if (currentMonthIndex === 11) {  // If it's December
+      currentMonthIndex = 0;  // Reset to January
+      currentYear += 1;       // Increment year
+    } else {
+      currentMonthIndex += 1; // Move to the next month
+    }
+    updateMonth();
+  }
+
+  function navigatePrevious() {
+    if (currentMonthIndex === 0) {  // If it's January
+      currentMonthIndex = 11;  // Reset to December
+      currentYear -= 1;        // Decrement year
+    } else {
+      currentMonthIndex -= 1;  // Move to the previous month
+    }
+    updateMonth();
+  }
+
+  function showCurrentMonth() {
+    currentMonthIndex = new Date().getMonth();
+    currentYear = new Date().getFullYear();
+    updateMonth();
+  }
+
+  function filterEventsByMonthAndYear(selectedMonth, selectedYear) {
+    const eventList = document.querySelectorAll('.event-card');
+    eventList.forEach(event => {
+      const eventMonth = event.getAttribute('data-month');
+      const eventYear = event.getAttribute('data-year');
+      if (eventMonth === selectedMonth && eventYear === String(selectedYear)) {
+        event.style.display = 'block';
+      } else {
+        event.style.display = 'none';
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", updateMonth);
+</script>
+{% endblock %}

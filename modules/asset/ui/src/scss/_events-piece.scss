@@ -1,25 +1,58 @@
-.module-piece {
-    display: flex;
-    padding: 20px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-  }
-  .module-image {
-    flex: 1;
-    margin-right: 20px;
-  }
-  .module-details {
-    flex: 2;
-  }
-  .module-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-  }
-  ////////
-  
-  
+.events-page {
+  padding: 20px;
+}
+
+.events-banner h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.event-image img {
+  width: 328px;
+  height: 184px;
+  border-radius: 8px;
+}
+
+.event-details {
+  padding: 10px;
+  flex: 1;
+}
+
+.event-date {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.event-title a {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.event-title a:hover {
+  text-decoration: underline;
+}
+
+.event-description {
+  font-size: 0.9em;
+  color: #333;
+}
+
+

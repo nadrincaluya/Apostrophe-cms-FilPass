@@ -21,6 +21,10 @@ module.exports = {
       {
         name: 'publication-page',
         label: 'publication'
+      },
+      {
+        name: 'events-page',
+        label: 'events'
       }
     ]
   }
