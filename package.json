@@ -46,7 +46,7 @@
     "@bodonkey/rich-text-enhancement": "^1.0.2",
     "apostrophe": "^4.9.0",
     "bootstrap": "^5.3.3",
-  
+    "fullcalendar": "^6.1.15",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events Calendar</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header with background image */
+    .calendar-header {
+      background: url('your-image-url.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 50px 0;
+      color: white;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    #calendar {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Customize toolbar buttons */
+    .fc-button {
+      background-color: #3b5998;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+    .fc-button:hover {
+      background-color: #2e477a;
+    }
+    
+    .fc-toolbar-title {
+      font-size: 1.5rem;
+    }
+
+    /* Event styling */
+    .fc-daygrid-event {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 3px 5px;
+      font-size: 0.85rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-header">
+    Events
+  </div>
+  <div id="calendar"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        },
+        events: async function (info, successCallback, failureCallback) {
+          try {
+            const response = await fetch('/api/v1/events');
+            const data = await response.json();
+
+            const calendarEvents = data.results.map(event => ({
+              title: event.title,
+              start: event.date,
+              description: event.description
+            }));
+
+            successCallback(calendarEvents);
+          } catch (err) {
+            failureCallback(err);
+          }
+        },
+        eventClick: function (info) {
+          alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+        }
+      });
+
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
