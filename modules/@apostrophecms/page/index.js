@@ -25,7 +25,8 @@ module.exports = {
       {
         name: 'events-page',
         label: 'events'
-      }
+      },
+      { name: 'calendar-page', label: 'Calendar Page' } 
     ]
   }
 };

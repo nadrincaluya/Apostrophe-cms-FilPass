@@ -11,7 +11,10 @@
   <div class="events-header">
     <button class="nav-button" onclick="navigatePrevious()">←</button>
     <button class="current-month-button" onclick="showCurrentMonth()">Current Month</button>
-    <button class="calendar-view-button">Calendar View</button>
+    <a href="/calendar">
+      <button class="calendar-view-button">Calendar View</button>
+    </a>
+
     <button class="nav-button" onclick="navigateNext()">→</button>
     <h2 id="current-month-label">{{ apos.template.getCurrentMonth() }} {{ apos.template.getCurrentYear() }}</h2>
   </div>

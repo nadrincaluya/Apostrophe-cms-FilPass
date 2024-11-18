@@ -40,7 +40,9 @@ require('apostrophe')({
     'spacing-widget':{},
     events:{},
     'events-page':{},
-    '@apostrophecms/open-graph': {}
+    //'@apostrophecms/open-graph': {},
+    'calendar-page':{}
+
 
 
   }

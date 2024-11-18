@@ -15,3 +15,5 @@ npm-debug.log
 .jshintrc
 .DS_Store
 
+package-lock.json
+node_modules
