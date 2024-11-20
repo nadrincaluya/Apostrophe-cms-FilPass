@@ -8,7 +8,18 @@ module.exports = {
         heading: {
           type: 'string',
           label: 'Heading'
-        }
+        },
+        bannerArea:{
+          type: 'area',
+          label: 'Banner Area',
+          options:{
+            widgets:{
+              banner:{}
+            }
+          }
+
+
+        },
       }
     }
   };

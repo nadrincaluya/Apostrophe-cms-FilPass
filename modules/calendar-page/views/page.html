@@ -1,3 +1,8 @@
+{% extends "layout.html" %}
+
+{% block main %}
+{% area data.page, 'bannerArea' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,61 +11,63 @@
   <title>Events Calendar</title>
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    /* Header with background image */
-    .calendar-header {
-      background: url('your-image-url.jpg') no-repeat center center;
-      background-size: cover;
-      padding: 50px 0;
-      color: white;
-      text-align: center;
-      font-size: 2rem;
-    }
-
     #calendar {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      max-width: 1425px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
     }
 
-    /* Customize toolbar buttons */
-    .fc-button {
-      background-color: #3b5998;
-      color: white;
+    /* Remove borders around the calendar cells */
+    .fc-daygrid-day {
       border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 14px;
-      margin: 0 5px;
     }
-    .fc-button:hover {
-      background-color: #2e477a;
-    }
-    
+
+    /* Change text color of the months */
     .fc-toolbar-title {
-      font-size: 1.5rem;
+      text-decoration: none;
+      color: black;
     }
 
-    /* Event styling */
-    .fc-daygrid-event {
-      background-color: #d9534f;
+    /* Styling for the navigation buttons */
+    .fc-prev-button, .fc-next-button, .fc-today-button {
+      text-transform: capitalize;
+      background-color: #007bff;
       color: white;
       border: none;
-      padding: 3px 5px;
-      font-size: 0.85rem;
-      border-radius: 4px;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Styling for the red dot with number */
+    .fc-daygrid-event-dot {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+
+    /* Adjust font size and spacing for event text */
+    .fc-event-title {
+      font-size: 0.9rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .fc-daygrid-event {
+      padding: 0;
     }
   </style>
 </head>
 <body>
-  <div class="calendar-header">
-    Events
-  </div>
   <div id="calendar"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.js"></script>
@@ -70,19 +77,30 @@
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: {
-          left: 'prev,next today',
+          left: 'prev,today,next',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list' // Add "list" as requested
+        },
+        buttonText: {
+          today: 'Today',
+          prev: 'Previous',
+          next: 'Next',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day',
+          list: 'List'
         },
         events: async function (info, successCallback, failureCallback) {
           try {
-            const response = await fetch('/api/v1/events');
+            const response = await fetch('/api/v1/events'); // Fetch events from your API
             const data = await response.json();
 
-            const calendarEvents = data.results.map(event => ({
-              title: event.title,
-              start: event.date,
-              description: event.description
+            const calendarEvents = data.results.map(events => ({
+              title: events.title,
+              start: events.date,
+              description: events.description,
+              url: events._url, // Add a URL for the list view
+              eventNumber: 1 // Example: You can dynamically assign this number
             }));
 
             successCallback(calendarEvents);
@@ -90,8 +108,25 @@
             failureCallback(err);
           }
         },
+        eventContent: function (arg) {
+          // Custom event rendering with a numbered red dot
+          const dot = document.createElement('div');
+          dot.classList.add('fc-daygrid-event-dot');
+          dot.textContent = arg.event.extendedProps.eventNumber || ''; 
+
+          const title = document.createElement('span');
+          title.classList.add('fc-event-title');
+          title.textContent = arg.event.title;
+
+          const arrayOfNodes = [dot, title];
+          return { domNodes: arrayOfNodes };
+        },
         eventClick: function (info) {
-          alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+          if (info.events._url) {
+            window.location.href = info.event.url; // 
+          } else {
+            alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+          }
         }
       });
 
@@ -100,3 +135,4 @@
   </script>
 </body>
 </html>
+{% endblock %}

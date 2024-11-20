@@ -40,8 +40,14 @@ require('apostrophe')({
     'spacing-widget':{},
     events:{},
     'events-page':{},
-    //'@apostrophecms/open-graph': {},
-    'calendar-page':{}
+    '@apostrophecms/open-graph': {
+
+      options: {
+        baseUrl: 'https://1a62-180-190-75-200.ngrok-free.app/'
+      }
+    },
+    'calendar-page':{},
+    '@apostrophecms/seo': {}
 
 
 

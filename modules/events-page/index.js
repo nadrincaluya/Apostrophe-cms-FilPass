@@ -21,12 +21,7 @@ module.exports = {
     
     
     },
-    group: {
-      basics: {
-        label: 'Basics',
-        fields: [ 'displayCategory' ]
-      }
-    }
+    
   },
   
  };
