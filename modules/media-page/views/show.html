@@ -11,18 +11,18 @@
         {% area media, 'bannerArea' %}
     </div>
 
-    <!-- Overlapping Card (Position relative to the banner, never overlapping the header) -->
+    <!-- Overlapping Card -->
     <div class="overlapping-card" style="position: relative; margin-top: -100px; background: white; padding: 2rem; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; width: 80%; max-width: 800px; margin-left: auto; margin-right: auto;">
       <!-- Media Release Title and Date -->
       <h2>{{ media.title }}</h2>
       <p>{{ media.date | date("D MMMM YYYY") }}</p>
 
-      <!-- Description (optional) -->
+      <!-- Description -->
       {% if media.description %}
         <p>{{ media.description }}</p>
       {% endif %}
 
-      <!-- Content Area for Rich Text, Images, and Videos -->
+      <!-- Content Area -->
       {% if media.contentArea %}
         {% area media, 'contentArea' %}
       {% endif %}

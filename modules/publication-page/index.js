@@ -13,7 +13,7 @@ module.exports = {
         label: 'Content area',
         options: {
           widgets: {
-            banner:{},
+            image:{},
 
           },
       }

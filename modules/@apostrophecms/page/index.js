@@ -3,6 +3,7 @@
 
 module.exports = {
   options: {
+  
     types: [
       {
         name: 'default-page',
@@ -27,6 +28,9 @@ module.exports = {
         label: 'events'
       },
       { name: 'calendar-page', label: 'Calendar Page' } 
-    ]
-  }
+    ],
+
+
+  },
+ 
 };

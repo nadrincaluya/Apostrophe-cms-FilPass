@@ -1,55 +1,61 @@
-require('apostrophe')({ 
-  shortName: 'ApostropheCMS-sample',
-  bundles: [ '@bodonkey/rich-text-enhancement' ],
+require('apostrophe')({
+  shortName: 'apostrophe_cms_project',
+  db: {
+    uri: 'mongodb://localhost:27017/apostrophe_cms_project'
+  },
+  bundles: [
+    '@bodonkey/rich-text-enhancement' // Example bundle
+  ],
+  baseUrl: 'http://localhost:3000',//Change to http domain in production
   modules: {
-   
-    'apostrophe-headless': {},
-        '@apostrophecms/form': {},
-    '@apostrophecms/form-widget': {}
-    ,
+    // Core functionality
+    '@apostrophe/headless': {}, // For API support
 
-    'apostrophe-pieces-pages': {
-      options: {
-        addPageTypes: [
-          {
-            name: 'blog',
-            label: 'Blog Page'
-          }
-        ]
-      }
-    },
+    
+    // Custom Modules
+    media: {},
+    'media-page': {}, 
+    publication: {},
+    'publication-page': {},
 
+    // Custom Widgets
     'rich-text-color': {},
     'rich-text-font': {},
-    'asset': {},
-    'default-page': {},
-    'row-widget': {},
-    media: {},
-    'media-page': {},
-    publication:{},
-    'publication-page':{}
-    ,
+    'image-widget': {},
     'button-widget': {},
-    'article': {},
-    'color': {},
-    //'imagesize-widget':{},
-    'banner-widget':{},
-    'table-widget':{},
-    'navigation-widget':{},
-    'form-widget':{},
-    'spacing-widget':{},
-    events:{},
-    'events-page':{},
-    '@apostrophecms/open-graph': {
+    'table-widget': {},
+    'navigation-widget': {},
+    'form-widget': {},
+    'row-widget': {},
 
+    // Events and Calendar
+    events: {},
+    'events-page': {},
+    'calendar-page': {},
+
+    // SEO and Metadata
+    
+    '@apostrophecms/open-graph': {
       options: {
-        baseUrl: 'https://1a62-180-190-75-200.ngrok-free.app/'
+        baseUrl: 'http://localhost:3000' // Change to http domain in production
       }
     },
-    'calendar-page':{},
-    '@apostrophecms/seo': {}
 
+    '@apostrophecms/seo': {
+      options:{
+        'keywords-seo':{},
+      }
+    },
+    '@apostrophecms/sitemap': {
+     
+    },
+  
 
+    // Overrides and Assets
+    'admin-ui-overrides': {}, // For UI overrides (e.g., logo)
+    'asset': {},
 
+    // Default Page Type
+    'default-page': {}
   }
 });

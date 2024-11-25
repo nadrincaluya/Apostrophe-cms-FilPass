@@ -13,7 +13,6 @@ module.exports = {
       url: {
         type: 'url',
         label: 'Button URL',
-      
       },
       style: {
         type: 'select',
@@ -25,9 +24,28 @@ module.exports = {
         ],
         def: 'btn-primary'
       },
+      buttonSpacingTop: {
+        type: 'integer',
+        label: 'Vertical Spacing Top (px)'
+      },
+      buttonSpacingBottom: {
+        type: 'integer',
+        label: 'Vertical Spacing Bottom (px)'
+      },
       openInNewTab: {
         type: 'boolean',
-        label: 'Open in New Tab'
+        label: 'Open in New Tab',
+        def: false
+      }
+    },
+    group: {
+      content: {
+        label: 'Content',
+        fields: ['text', 'url', 'style', 'openInNewTab']
+      },
+      spacing: {
+        label: 'Vertical Spacing',
+        fields: ['buttonSpacingTop', 'buttonSpacingBottom']
       }
     }
   }

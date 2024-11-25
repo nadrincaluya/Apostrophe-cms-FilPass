@@ -38,7 +38,30 @@
 
       <div class="event-details">
         <p class="event-date">{{ event.date | date('D MMMM YYYY') }}</p>
-        <p class="event-date">{{ event.time }}</p>
+        <p class="event-date">
+          {% set parts = event.time.split(':') %}
+          {% set hours = parts[0] | int %}
+          {% set minutes = parts[1] %}
+        
+          {% if hours == 0 %}
+            {% set formattedHours = 12 %}
+          {% elseif hours > 12 %}
+            {% set formattedHours = hours - 12 %}
+          {% else %}
+            {% set formattedHours = hours %}
+          {% endif %}
+        
+          {% if minutes | length == 1 %}
+            {% set formattedMinutes = '0' + minutes %}
+          {% else %}
+            {% set formattedMinutes = minutes %}
+          {% endif %}
+        
+          {{ formattedHours }}:{{ formattedMinutes }}
+        </p>
+        
+        
+        
         <h3><a href="{{ event._url }}">{{ event.title }}</a></h3>
         <p>{{ event.description }}</p>
       </div>
@@ -65,7 +88,7 @@
   }
 
   function navigateNext() {
-    if (currentMonthIndex === 11) {  // If it's December
+    if (currentMonthIndex === 11) {  // If December is next
       currentMonthIndex = 0;  // Reset to January
       currentYear += 1;       // Increment year
     } else {
@@ -75,7 +98,7 @@
   }
 
   function navigatePrevious() {
-    if (currentMonthIndex === 0) {  // If it's January
+    if (currentMonthIndex === 0) {  // If January is previous
       currentMonthIndex = 11;  // Reset to December
       currentYear -= 1;        // Decrement year
     } else {

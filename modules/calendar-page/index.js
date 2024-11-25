@@ -14,7 +14,7 @@ module.exports = {
           label: 'Banner Area',
           options:{
             widgets:{
-              banner:{}
+              image:{}
             }
           }
 

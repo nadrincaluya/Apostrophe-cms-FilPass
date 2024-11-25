@@ -24,7 +24,7 @@ module.exports = {
           { label: 'Center', value: 'table-center' },
           { label: 'Right', value: 'table-right' }
         ],
-        def: 'center'  // Default alignment is center
+       
       },
       rows: {
         type: 'array',

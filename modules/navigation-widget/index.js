@@ -21,14 +21,31 @@ module.exports = {
               type: 'url',
               required: true
             },
-            isHighlighted: {
-              label: 'Highlight Link',
-              type: 'boolean',
-              help: 'Check this box to highlight the link'
-            }
+           
+      
+          
           }
         }
+      },
+      navigationSpacingTop: {
+        type: 'integer',
+        label: 'Vertical Spacing Top (px)'
+      },
+      navigationSpacingBottom: {
+        type: 'integer',
+        label: 'Vertical Spacing Bottom (px)'
       }
+    },
+    group:{
+      content: {
+        label: 'Content',
+        fields: ['links']
+      },
+      spacing: {
+        label: 'Vertical Spacing',
+        fields: ['navigationSpacingTop', 'navigationSpacingBottom']
+      }
+
     }
   }
 };

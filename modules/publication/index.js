@@ -52,7 +52,7 @@ module.exports = {
         label: 'Banner Area',
         options: {
           widgets: {
-            banner:{}
+            image:{}
           } // Add custom widgets or configurations if needed
         },
         required: true

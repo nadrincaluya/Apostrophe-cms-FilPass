@@ -1,3 +1,11 @@
-<a href="{{ data.widget.url }}" class="button">
-    {{ data.widget.text }}
-  </a>
+{% if data.widget.buttonSpacingTop %}
+  <div class="spacing-widget" style="padding-top: {{ data.widget.buttonSpacingTop }}px;"></div>
+{% endif %}
+
+<a href="{{ data.widget.url }}" class="button {{ data.widget.style }}" {% if data.widget.openInNewTab %}target="_blank"{% endif %}>
+  {{ data.widget.text }}
+</a>
+
+{% if data.widget.buttonSpacingBottom %}
+  <div class="spacing-widget" style="padding-bottom: {{ data.widget.buttonSpacingBottom }}px;"></div>
+{% endif %}

@@ -1,3 +1,28 @@
+/*
+  This style is for the image overlay for the image overlay widget
+*/
+
+
+.image-with-text {
+    position: relative;
+    display: inline-block; /* or any preferred styling */
+  }
+  
+  .image {
+    display: block; /* or any preferred styling */
+  }
+  
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* adjust color based on your image */
+    font-size: 24px; /* adjust font size */
+    text-align: center;
+  }
+  
+
 .image-overlay-widget {
     position: relative;
   }

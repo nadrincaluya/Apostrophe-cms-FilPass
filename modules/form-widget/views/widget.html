@@ -1,23 +1,69 @@
+{%if data.widget.formSpacingTop %}
+<div class="spacing-widget" style="padding-top: {{ data.widget.formSpacingTop }}px;"></div>
+{% endif %}
+
+
 <section class="contact-form-widget">
-    <h2>{{ data.widget.title }}</h2>
-    <form method="POST" action="/submit-form">
-      {% for field in data.widget.fields %}
-        <div class="form-group">
-          <label for="{{ field.name }}">{{ field.label }}</label>
-          {% if field.type === 'text' or field.type === 'email' or field.type === 'tel' %}
-            <input type="{{ field.type }}" id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control" placeholder="{{ field.label }}">
-          {% elseif field.type === 'select' %}
-            <select id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control">
-              {% for choice in field.choices %}
-                <option value="{{ choice.value }}">{{ choice.label }}</option>
-              {% endfor %}
-            </select>
-          {% elseif field.type === 'textarea' %}
-            <textarea id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control" placeholder="{{ field.label }}"></textarea>
-          {% endif %}
-        </div>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
-  </section>
-  
+  <h2>{{ data.widget.title }}</h2>
+  <form id="contactForm" method="POST">
+    {% for field in data.widget.fields %}
+      <div class="form-group">
+        <label for="{{ field.name }}">{{ field.label }}</label>
+        {% if field.type === 'text' or field.type === 'email' or field.type === 'tel' %}
+          <input type="{{ field.type }}" id="{{ field.name }}" name="{{ field.name }}" 
+            {% if field.required %}required{% endif %} class="form-control" placeholder="{{ field.label }}">
+        {% elseif field.type === 'select' %}
+          <select id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control">
+            {% for choice in field.choices %}
+              <option value="{{ choice.value }}">{{ choice.label }}</option>
+            {% endfor %}
+          </select>
+        {% elseif field.type === 'textarea' %}
+          <textarea id="{{ field.name }}" name="{{ field.name }}" {% if field.required %}required{% endif %} class="form-control" 
+            placeholder="{{ field.label }}"></textarea>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Send Message</button>
+  </form>
+  <div id="formMessage" style="display: none;"></div>
+</section>
+{%if data.widget.formSpacingBottom %}
+<div class="spacing-widget" style="padding-bottom: {{ data.widget.formSpacingBottom }}px;"></div>
+{% endif %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch('/api/v1/contact-form/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(result => {
+        formMessage.textContent = result.message;
+        formMessage.style.display = 'block';
+        formMessage.className = result.success ? 'success' : 'error';
+        if (result.success) {
+          form.reset();
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        formMessage.textContent = 'An error occurred. Please try again later.';
+        formMessage.style.display = 'block';
+        formMessage.className = 'error';
+      });
+    });
+  });
+</script>

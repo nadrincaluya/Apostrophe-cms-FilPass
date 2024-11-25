@@ -10,21 +10,13 @@ module.exports = {
       main: {
         type: 'area',
         options: {
-          widgets: {
+          widgets: 
             fullConfig,
-            'button-widget':{}
-          }
+         
+          
         }
       }
     },
-    group: {
-      basics: {
-        label: 'Basics',
-        fields: [
-          'title',
-          'main'
-        ]
-      }
-    }
+
   }
 };
