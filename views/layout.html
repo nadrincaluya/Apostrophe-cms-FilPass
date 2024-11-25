@@ -1,8 +1,17 @@
-{# Automatically extends the right outer layout and also handles AJAX siutations #}
 {% extends data.outerLayout %}
 
 {% import 'fragments/topbar.html' as topbar %}
 {% import 'fragments/footer.html' as footer %}
+
+{% if data.piece %}
+  {% set seo = data.piece._seo or {} %}
+{% else %}
+  {% set seo = data.page._seo or {} %}
+{% endif %}
+
+{% if seo.keywords %}
+  <meta name="keywords" content="{{ seo.keywords }}">
+{% endif %}
 
 {% set title = data.piece.title or data.page.title %}
 {% block title %}
@@ -12,9 +21,8 @@
   {% endif %}
 {% endblock %}
 
-
 {% block beforeMain %}
-  <header >
+  <header>
     {% render topbar.mainArea() %}
   </header>
   <main class="pr-main original-size-image">
