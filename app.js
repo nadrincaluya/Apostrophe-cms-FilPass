@@ -1,34 +1,61 @@
 require('apostrophe')({
-  shortName: 'a3-boilerplate',
+  shortName: 'apostrophe_cms_project',
+  db: {
+    uri: 'mongodb://localhost:27017/apostrophe_cms_project'
+  },
+  bundles: [
+    '@bodonkey/rich-text-enhancement' // Example bundle
+  ],
+  baseUrl: 'http://localhost:3000',//Change to http domain in production
   modules: {
-    // Apostrophe module configuration
-    // *******************************
-    //
-    // NOTE: most configuration occurs in the respective modules' directories.
-    // See modules/@apostrophecms/page/index.js for an example.
-    //
-    // Any modules that are not present by default in Apostrophe must at least
-    // have a minimal configuration here to turn them on: `moduleName: {}`
-    // ***********************************************************************
-    // `className` options set custom CSS classes for Apostrophe core widgets.
-    '@apostrophecms/rich-text-widget': {
+    // Core functionality
+    '@apostrophe/headless': {}, // For API support
+
+    
+    // Custom Modules
+    media: {},
+    'media-page': {}, 
+    publication: {},
+    'publication-page': {},
+
+    // Custom Widgets
+    'rich-text-color': {},
+    'rich-text-font': {},
+    'image-widget': {},
+    'button-widget': {},
+    'table-widget': {},
+    'navigation-widget': {},
+    'form-widget': {},
+    'row-widget': {},
+
+    // Events and Calendar
+    events: {},
+    'events-page': {},
+    'calendar-page': {},
+
+    // SEO and Metadata
+    
+    '@apostrophecms/open-graph': {
       options: {
-        className: 'bp-rich-text'
+        baseUrl: 'http://localhost:3000' // Change to http domain in production
       }
     },
-    '@apostrophecms/image-widget': {
-      options: {
-        className: 'bp-image-widget'
+
+    '@apostrophecms/seo': {
+      options:{
+        'keywords-seo':{},
       }
     },
-    '@apostrophecms/video-widget': {
-      options: {
-        className: 'bp-video-widget'
-      }
+    '@apostrophecms/sitemap': {
+     
     },
-    // `asset` supports the project's webpack build for client-side assets.
-    asset: {},
-    // The project's first custom page type.
+  
+
+    // Overrides and Assets
+    'admin-ui-overrides': {}, // For UI overrides (e.g., logo)
+    'asset': {},
+
+    // Default Page Type
     'default-page': {}
   }
 });

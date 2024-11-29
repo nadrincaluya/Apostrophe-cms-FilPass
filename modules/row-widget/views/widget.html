@@ -1,0 +1,10 @@
+{% set cols = apos.modules['row-widget'].layoutToColumns(data.widget.columns) %}
+<div class="container-fluid">
+  <div class="row mb-5 justify-content-center">
+      {% for column in cols %}
+        <div class="col-md-{{ column }}">
+          {% area data.widget, 'area' ~ loop.index %}
+        </div>
+      {% endfor %}
+  </div>
+</div>

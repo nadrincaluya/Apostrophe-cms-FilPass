@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+
+{% block main %}
+{% area data.page, 'bannerArea' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events Calendar</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css" rel="stylesheet">
+  <style>
+    #calendar {
+      max-width: 1425px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    /* Remove borders around the calendar cells */
+    .fc-daygrid-day {
+      border: none;
+    }
+
+    /* Change text color of the months */
+    .fc-toolbar-title {
+      text-decoration: none;
+      color: black;
+    }
+
+    /* Styling for the navigation buttons */
+    .fc-prev-button, .fc-next-button, .fc-today-button {
+      text-transform: capitalize;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    /* Styling for the red dot with number */
+    .fc-daygrid-event-dot {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+
+    /* Adjust font size and spacing for event text */
+    .fc-event-title {
+      font-size: 0.9rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .fc-daygrid-event {
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="calendar"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar/main.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,today,next',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list' // Add "list" as requested
+        },
+        buttonText: {
+          today: 'Today',
+          prev: 'Previous',
+          next: 'Next',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day',
+          list: 'List'
+        },
+        events: async function (info, successCallback, failureCallback) {
+          try {
+            const response = await fetch('/api/v1/events'); // Fetch events from your API
+            const data = await response.json();
+
+            const calendarEvents = data.results.map(events => ({
+              title: events.title,
+              start: events.date,
+              description: events.description,
+              url: events._url, // Add a URL for the list view
+              eventNumber: 1 // Example: You can dynamically assign this number
+            }));
+
+            successCallback(calendarEvents);
+          } catch (err) {
+            failureCallback(err);
+          }
+        },
+        eventContent: function (arg) {
+          // Custom event rendering with a numbered red dot
+          const dot = document.createElement('div');
+          dot.classList.add('fc-daygrid-event-dot');
+          dot.textContent = arg.event.extendedProps.eventNumber || ''; 
+
+          const title = document.createElement('span');
+          title.classList.add('fc-event-title');
+          title.textContent = arg.event.title;
+
+          const arrayOfNodes = [dot, title];
+          return { domNodes: arrayOfNodes };
+        },
+        eventClick: function (info) {
+          if (info.events._url) {
+            window.location.href = info.event.url; // 
+          } else {
+            alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+          }
+        }
+      });
+
+      calendar.render();
+    });
+  </script>
+</body>
+</html>
+{% endblock %}

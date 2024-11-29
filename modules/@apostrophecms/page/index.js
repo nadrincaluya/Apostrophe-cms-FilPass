@@ -3,6 +3,7 @@
 
 module.exports = {
   options: {
+  
     types: [
       {
         name: 'default-page',
@@ -11,7 +12,25 @@ module.exports = {
       {
         name: '@apostrophecms/home-page',
         label: 'Home'
-      }
-    ]
-  }
+      },
+
+      {
+        name: 'media-page',
+        label: 'media'
+      },
+      
+      {
+        name: 'publication-page',
+        label: 'publication'
+      },
+      {
+        name: 'events-page',
+        label: 'events'
+      },
+      { name: 'calendar-page', label: 'Calendar Page' } 
+    ],
+
+
+  },
+ 
 };

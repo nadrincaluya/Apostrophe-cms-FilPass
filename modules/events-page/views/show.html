@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+
+{% set events = data.piece %}
+{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #333;
+    }
+
+    .event-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px;
+    }
+
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      opacity: 0; /* Start hidden */
+      transform: translateX(-30px); /* Initial position for slide-in from left */
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .event-card.visible {
+      opacity: 1; /* Fade in */
+      transform: translateX(0); /* Slide to final position */
+    }
+
+    .event-image {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .event-content {
+      padding: 20px;
+    }
+
+    .event-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      margin: 0;
+    }
+
+    .event-details {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 10px;
+      min-height: 50px;
+    }
+
+    .event-date-container {
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-top: 15px;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .event-date {
+      font-size: 0.8rem;
+      margin-left: 10px;
+      color: #333;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .event-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://via.placeholder.com/80" alt="Event Image">
+    <div class="featured-event-details">
+      <h3>{{data.piece.title}}</h3>
+      <p>{{ data.piece.date | date("D MMMM YYYY") }}</p>
+
+    <h1>Upcoming Events</h1>
+    <div class="event-container" id="event-container">
+      <!-- Event cards will be appended here -->
+    </div>
+  </div>
+ 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const eventContainerEl = document.getElementById('event-container');
+      let allEvents = [];
+
+      // Inject the starting date dynamically from Apostrophe
+      const startingDate = new Date("{{ data.piece.date | safe }}");
+
+      // Fetch events from the API
+      async function fetchEvents() {
+        try {
+          const response = await fetch('/api/v1/events');  // Adjust the API endpoint if necessary
+          const data = await response.json();
+          allEvents = data.results;
+
+          // Filter events that occur after the starting date
+          const upcomingEvents = allEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate > startingDate; // Keep only events after the starting date
+          });
+
+          // Sort the filtered events by date in ascending order
+          upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+          // Display the next 3 upcoming events
+          displayUpcomingEvents(upcomingEvents.slice(0, 3)); // Show the next 3 events
+        } catch (error) {
+          console.error('Error fetching events:', error);
+        }
+      }
+
+      // Function to display the events as cards
+      function displayUpcomingEvents(events) {
+        events.forEach((event, index) => {
+          const eventCard = document.createElement('div');
+          eventCard.classList.add('event-card');
+
+          // Top part - Image
+          const eventImage = document.createElement('div');
+          eventImage.classList.add('event-image');
+          eventImage.style.backgroundImage = `url('${event.image || "https://via.placeholder.com/150"}')`;
+
+          // Bottom part - Text content
+          const eventContent = document.createElement('div');
+          eventContent.classList.add('event-content');
+
+          const eventTitle = document.createElement('h3');
+          eventTitle.classList.add('event-title');
+          eventTitle.textContent = event.title;
+
+          const eventDescription = document.createElement('p');
+          eventDescription.classList.add('event-details');
+          eventDescription.textContent = event.description;
+
+          const eventDateContainer = document.createElement('div');
+          eventDateContainer.classList.add('event-date-container');
+
+          const eventDate = document.createElement('span');
+          eventDate.classList.add('event-date');
+          eventDate.textContent = new Date(event.date).toLocaleDateString();
+
+          const eventLocation = document.createElement('span');
+          eventLocation.classList.add('event-location');
+          eventLocation.textContent = event.location;
+
+          eventDateContainer.appendChild(eventDate);
+          eventDateContainer.appendChild(eventLocation);
+
+          eventContent.appendChild(eventTitle);
+          eventContent.appendChild(eventDescription);
+          eventContent.appendChild(eventDateContainer);
+
+          eventCard.appendChild(eventImage);
+          eventCard.appendChild(eventContent);
+          eventContainerEl.appendChild(eventCard);
+
+          // Apply slide-in animation with a delay for each card
+          setTimeout(() => {
+            eventCard.classList.add('visible');
+          }, index * 200); // Delay each card for a staggered effect
+        });
+      }
+
+      // Fetch events and display the upcoming ones
+      fetchEvents();
+    });
+  </script>
+</body>
+</html>
+{% endblock %}

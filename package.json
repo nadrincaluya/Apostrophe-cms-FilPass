@@ -40,7 +40,20 @@
   "author": "Apostrophe Technologies, Inc.",
   "license": "MIT",
   "dependencies": {
-    "apostrophe": "^4.0.0",
+    "@apostrophecms/cli": "^3.4.0",
+    "@apostrophecms/form": "^1.4.2",
+    "@apostrophecms/open-graph": "^1.2.2",
+    "@apostrophecms/seo": "^1.3.0",
+    "@apostrophecms/sitemap": "^1.0.3",
+    "@bodonkey/rich-text-enhancement": "^1.0.2",
+    "apostrophe": "^4.9.0",
+    "apostrophe-headless": "^2.12.1",
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "fullcalendar": "^6.1.15",
+    "mongodb": "^6.10.0",
+    "nodemailer": "^6.9.16",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {

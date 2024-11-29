@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% import '@apostrophecms/pager:macros.html' as pager with context %}
+
+{% set currentPath = data.page._url %}
+
+{% block main %}
+<section class="media-release">
+    {% area data.page, 'mediaReleaseArea' %}
+</section>
+
+<div class="container">
+
+  <div class="latest-news mx-auto" style="max-width: 900px;">
+    <h2 class="text-primary mb-4 text-start">Latest News</h2>
+
+    <div class="news-list">
+      {% for mediaRelease in data.pieces %}
+        <div class="news-item mx-auto mb-4" style="max-width: 900px;">
+          <div class="d-flex align-items-center">
+            {% set image = apos.image.first(mediaRelease.image) %}
+            {% if image %}
+              {% set imageUrl = apos.attachment.url(image, { width: 328, height: 184 }) %}
+            {% else %}
+              {% set imageUrl = 'https://picsum.photos/200' %}
+            {% endif %}
+
+            <img src="{{ imageUrl }}" alt="{{ mediaRelease.imageAltText }}" class="img-fluid me-4" style="width: 328px; height: 184px; border-radius: 8px;">
+
+            <div class="news-content text-start" style="flex-grow: 1;">
+              <h3 ><a href="{{ mediaRelease._url }}" class="text-decoration-none text-primary">{{ mediaRelease.title }}</a></h3>
+              
+              <p class="text-muted">{{ mediaRelease.description | truncate(100) }}</p>
+              <a href="{{ mediaRelease._url }}" class="read-more btn btn-outline-primary text-left">Read More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+   <!-- This renders the page navigation -->
+{% if data.totalPages !== 1 %}
+<div class="row justify-content-center mb-5">
+  <div class="col-md-4 align-self-center bg-info border border-dark border-3 rounded">
+  {{ pager.render({
+    page: data.currentPage,
+    total: data.totalPages,
+    shown: 5,
+    class: 'fs-3 ms-5'
+    }, data.url) }}
+  </div>
+</div>
+{% endif %}
+
+</div>
+{% endblock %}

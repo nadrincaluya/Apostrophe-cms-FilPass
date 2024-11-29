@@ -1,0 +1,26 @@
+/*
+  This style is for the image overlay for the table-widget
+*/
+.table-widget {
+    margin-bottom: 20px;
+
+  }
+  
+  .custom-table-widget {
+    border-collapse: collapse;
+    margin-left: 
+    auto; margin-right: 0;
+  }
+  
+  .custom-table-widget th, .custom-table-widget td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .custom-table-widget th {
+    background-color: #f2f2f2;
+  }
+
+
+  

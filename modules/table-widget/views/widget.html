@@ -1,0 +1,18 @@
+<!-- modules/table-widget/views/widget.html -->
+
+    <table class="custom-table-widget {{data.widget.alignment}}" style="width: {{data.widget.width}}%;">
+      {% for row in data.widget.rows %}
+        <tr style="background-color: {{ row.rowBackgroundColor }};">
+          {% for cell in row.cells %}
+            <td style="
+              background-color: {{ cell.backgroundColor }};
+              color: {{ cell.textColor }};
+              font-size: {{ cell.fontSize }};">
+              {{ cell.content | safe }}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+
+  

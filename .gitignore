@@ -1,11 +1,9 @@
-package-lock.json
+
 /locales
 npm-debug.log
 /data
-/public/uploads
 /public/apos-minified
 /data/temp/uploadfs
-node_modules
 # This folder is created on the fly and contains symlinks updated at startup (we'll come up with a Windows solution that actually copies things)
 /public/modules
 # Don't commit build files
@@ -17,3 +15,6 @@ node_modules
 .jshintrc
 .DS_Store
 
+package-lock.json
+node_modules
+.env

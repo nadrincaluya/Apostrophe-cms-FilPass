@@ -1,0 +1,19 @@
+
+{%if data.widget.navigationSpacingTop %}
+<div class="spacing-widget" style="padding-top: {{ data.widget.navigationSpacingTop }}px;"></div>
+{% endif %}
+<nav class="navigation-widget">
+    <ul>
+      {% for link in data.widget.links %}
+        <li >
+          <a href="{{ link.url }}">{{ link.label }}</a>
+        </li>
+        {% if not loop.last %}
+          <hr class="navigation-divider">
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+{%if data.widget.navigationSpacingBottom %}
+<div class="spacing-widget" style="padding-bottom: {{ data.widget.navigationSpacingBottom }}px;"></div>
+{% endif %}

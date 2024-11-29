@@ -1,0 +1,122 @@
+{% fragment mainArea() %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Example</title>
+    <style>
+        /* Footer styling */
+        .footer {
+            background-color: #002F6C; /* Dark blue background */
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-around;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer div {
+            max-width: 250px;
+        }
+
+        /* Footer links and headings */
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Address and contact details styling */
+        .footer p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Social icons container */
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Social icon styling */
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Bottom copyright text */
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom a {
+            color: white;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <!-- Map Section -->
+    <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31573.830218346624!2d103.8519593!3d1.2930079!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da1a9b2f569cd5%3A0x9d7454bd3674ff30!2sCentennial%20Tower!5e0!3m2!1sen!2ssg!4v1698583535049!5m2!1sen!2ssg" 
+                width="250" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- Address Section -->
+    <div>
+        <h3>Financial Planning Association of Singapore</h3>
+        <p>3 Temasek Avenue<br>Centennial Tower #21-00<br>Singapore 039190</p>
+        <p>Operating Hours: 9:30 am to 5:00 pm<br>(Closed on Saturday, Sunday and Public Holidays)</p>
+        <p>UEN: S99SS0008L<br>GST Registration No.: M90005984L</p>
+    </div>
+
+    <!-- Contact Details Section -->
+    <div>
+        <h3>Contact Details</h3>
+        <p>Certification matters<br><a href="mailto:support@fpas.org.sg">support@fpas.org.sg</a><br>(65) 6829 7165</p>
+        <p>Events & Marketing<br><a href="mailto:events@fpas.org.sg">events@fpas.org.sg</a><br>(65) 6829 7165</p>
+        <p>General Enquiries<br><a href="mailto:admin@fpas.org.sg">admin@fpas.org.sg</a><br>(65) 6829 7166</p>
+        <div class="social-icons">
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="youtube-icon.png" alt="YouTube"></a>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Bottom Section -->
+<div class="footer-bottom">
+    <p>
+        <a href="#">PDPA Policy</a> | 
+        <a href="#">Terms of Use</a> | 
+        <span>Copyright © 2024 Financial Planning Association of Singapore. All Rights Reserved.</span>
+    </p>
+</div>
+
+</body>
+</html>
+
+{% endfragment %}

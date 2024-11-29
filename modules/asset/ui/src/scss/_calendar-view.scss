@@ -1,0 +1,48 @@
+/*
+  This style is for the Calendar view in the calendar-page
+*/
+
+  
+  /* Remove the border */
+  #calendar {
+    max-width: 1425px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    border: none; /* Remove border */
+  }
+
+  /* Set text color to black */
+  .fc-event, .fc-title, .fc-toolbar-title {
+    color: black !important;
+  }
+
+  /* Remove underlines on months */
+  .fc-month-button {
+    text-decoration: none;
+  }
+
+  /* Remove borders for the calendar days */
+  .fc-daygrid-day {
+    border: none;
+  }
+
+  /* Style the navigation buttons */
+  .fc-prev-button, .fc-next-button, .fc-today-button {
+    text-transform: capitalize;
+  }
+
+  /* Optional: Style the list button in the header */
+  .fc-list-button {
+    text-transform: capitalize;
+  }
+
+  /* Style for right side list items (if needed) */
+  .fc-right {
+    display: flex;
+    justify-content: flex-start;
+
+  }
+
+  
