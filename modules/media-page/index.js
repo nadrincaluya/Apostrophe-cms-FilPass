@@ -46,7 +46,7 @@ module.exports = {
             value: category
           }))
         ];
-      }
+      },
     };
   },
   extendMethods(self) {
@@ -77,4 +77,5 @@ module.exports = {
       }
     };
   },
+  
 };

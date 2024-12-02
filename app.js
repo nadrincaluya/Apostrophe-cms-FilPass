@@ -56,6 +56,8 @@ require('apostrophe')({
     'asset': {},
 
     // Default Page Type
-    'default-page': {}
+    'default-page': {},
+
+   
   }
 });

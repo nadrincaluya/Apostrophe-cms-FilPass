@@ -47,27 +47,67 @@ module.exports = {
         },
         readOnly: true
       },
-      bannerArea:{
+      bannerArea: {
         type: 'area',
         label: 'Banner Area',
         options: {
           widgets: {
-            image:{}
+            image: {}
           } // Add custom widgets or configurations if needed
         },
         required: true
-      }
+      },
+      category: {
+        type: 'select',
+        label: 'Category',
+        required: true,
+        choices: [
+          {
+            label: 'Vehicle',
+            value: 'vehicle'
+          },
+          {
+            label: 'Home & Garden',
+            value: 'home-garden'
+          },
+          {
+            label: 'Appliances',
+            value: 'appliances'
+          },
+          {
+            label: 'Electronics',
+            value: 'electronics'
+          },
+          {
+            label: 'Toys',
+            value: 'toys'
+          }
+        ]
+      },
     },
     group: {
       basics: {
         label: 'Basics',
-        fields: [ 'title', 'date', 'image', 'description' ]
+        fields: ['title', 'date', 'image', 'description']
       },
       banner: {
         label: 'Banner',
-        fields: [ 'bannerArea' ]
+        fields: ['bannerArea']
       },
+    },
+  },
+  filters: {
+    add: {
+      category: {
+        label: 'Category'
+      }
     }
   },
-
+  columns: {
+    add: {
+      category: {
+        label: 'Category'
+      }
+    }
+  }
 };

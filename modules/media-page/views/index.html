@@ -14,9 +14,23 @@
   <div class="latest-news mx-auto" style="max-width: 900px;">
     <h2 class="text-primary mb-4 text-start">Latest News</h2>
 
-    <div class="news-list">
+    <!-- Dropdown filter -->
+    <div class="mb-4">
+      <label for="categoryFilter" class="form-label">Filter by Category</label>
+      <select id="categoryFilter" class="form-select" onchange="filterNews()">
+        <option value="">All Categories</option>
+        {% set categories = [] %}
+        {% for mediaRelease in data.pieces %}
+          {% if mediaRelease.category %}
+            {% set categories = categories | merge([mediaRelease.category]) %}
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="news-list" id="newsList">
       {% for mediaRelease in data.pieces %}
-        <div class="news-item mx-auto mb-4" style="max-width: 900px;">
+        <div class="news-item mx-auto mb-4" style="max-width: 900px;" data-category="{{ mediaRelease.category }}">
           <div class="d-flex align-items-center">
             {% set image = apos.image.first(mediaRelease.image) %}
             {% if image %}
@@ -28,7 +42,7 @@
             <img src="{{ imageUrl }}" alt="{{ mediaRelease.imageAltText }}" class="img-fluid me-4" style="width: 328px; height: 184px; border-radius: 8px;">
 
             <div class="news-content text-start" style="flex-grow: 1;">
-              <h3 ><a href="{{ mediaRelease._url }}" class="text-decoration-none text-primary">{{ mediaRelease.title }}</a></h3>
+              <h3><a href="{{ mediaRelease._url }}" class="text-decoration-none text-primary">{{ mediaRelease.title }}</a></h3>
               
               <p class="text-muted">{{ mediaRelease.description | truncate(100) }}</p>
               <a href="{{ mediaRelease._url }}" class="read-more btn btn-outline-primary text-left">Read More</a>
@@ -43,15 +57,52 @@
 {% if data.totalPages !== 1 %}
 <div class="row justify-content-center mb-5">
   <div class="col-md-4 align-self-center bg-info border border-dark border-3 rounded">
-  {{ pager.render({
-    page: data.currentPage,
-    total: data.totalPages,
-    shown: 5,
-    class: 'fs-3 ms-5'
+    {{ pager.render({
+      page: data.currentPage,
+      total: data.totalPages,
+      shown: 5,
+      class: 'fs-3 ms-5'
     }, data.url) }}
   </div>
 </div>
 {% endif %}
 
 </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    // Extract categories and remove duplicates
+    const categories = [];
+    {% for mediaRelease in data.pieces %}
+      {% if mediaRelease.category %}
+        categories.push("{{ mediaRelease.category }}");
+      {% endif %}
+    {% endfor %}
+
+    const uniqueCategories = [...new Set(categories)];
+
+    // Add options to the dropdown
+    const categorySelect = document.getElementById('categoryFilter');
+    uniqueCategories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+  });
+
+  function filterNews() {
+    const selectedCategory = document.getElementById('categoryFilter').value.toLowerCase();
+    const newsItems = document.querySelectorAll('.news-item');
+
+    newsItems.forEach(item => {
+      const itemCategory = item.getAttribute('data-category')?.toLowerCase();
+      if (!selectedCategory || itemCategory === selectedCategory) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+</script>
 {% endblock %}
