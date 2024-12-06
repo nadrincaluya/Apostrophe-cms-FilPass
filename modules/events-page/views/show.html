@@ -101,11 +101,76 @@
 </head>
 <body>
 
+
+
+
   <div class="container">
-    <img src="https://via.placeholder.com/80" alt="Event Image">
+    {% set image = apos.image.first(events.bannerImage) %}
+    {% if image %}
+      {% set imageUrl = apos.attachment.url(image, { width: 328, height: 184 }) %}
+    {% else %}
+      {% set imageUrl = 'https://picsum.photos/200' %}
+    {% endif %}
+  
+    <img src="{{ imageUrl }}"  style="width: 80px; height: 80px;" alt="Event Image">
     <div class="featured-event-details">
       <h3>{{data.piece.title}}</h3>
       <p>{{ data.piece.date | date("D MMMM YYYY") }}</p>
+      <p class="event-time" data-time="{{ event.startTime }}" data-timezone="{{ event.timezone }}" data-date="{{ event.date }}">
+        {% set parts = events.startTime.split(':') %}
+        {% set hours = parts[0] | int %}
+        {% set minutes = parts[1] %}
+        
+        {% if hours == 0 %}
+          {% set formattedHours = 12 %}
+          {% set period = 'AM' %}
+        {% elseif hours > 12 %}
+          {% set formattedHours = hours - 12 %}
+          {% set period = 'PM' %}
+        {% elseif hours == 12 %}
+          {% set formattedHours = hours %}
+          {% set period = 'PM' %}
+        {% else %}
+          {% set formattedHours = hours %}
+          {% set period = 'AM' %}
+        {% endif %}
+        
+        {% if minutes | length == 1 %}
+          {% set formattedMinutes = '0' + minutes %}
+        {% else %}
+          {% set formattedMinutes = minutes %}
+        {% endif %}
+        
+
+        {% set parts2 = events.endTime.split(':') %}
+        {% set hours2 = parts2[0] | int %}
+        {% set minutes2 = parts2[1] %}
+        
+        {% if hours2 == 0 %}
+          {% set formattedHours2 = 12 %}
+          {% set period2 = 'AM' %}
+        {% elseif hours2 > 12 %}
+          {% set formattedHours2 = hours2 - 12 %}
+          {% set period2 = 'PM' %}
+        {% elseif hours2 == 12 %}
+          {% set formattedHours2 = hours2 %}
+          {% set period2 = 'PM' %}
+        {% else %}
+          {% set formattedHours2 = hours2 %}
+          {% set period2 = 'AM' %}
+        {% endif %}
+        
+        {% if minutes | length == 1 %}
+          {% set formattedMinutes2 = '0' + minutes2 %}
+        {% else %}
+          {% set formattedMinutes2 = minutes2 %}
+        {% endif %}
+        <span>{{ formattedHours }}:{{ formattedMinutes }} {{ period }}
+          - {{ formattedHours2 }}:{{ formattedMinutes2 }} {{ period2 }}
+        </span> 
+      
+      </p>
+    </div>
 
     <h1>Upcoming Events</h1>
     <div class="event-container" id="event-container">
@@ -120,22 +185,28 @@
 
       // Inject the starting date dynamically from Apostrophe
       const startingDate = new Date("{{ data.piece.date | safe }}");
+      console.log('Starting Date:', startingDate);
 
       // Fetch events from the API
       async function fetchEvents() {
         try {
+          console.log('Fetching events...');
           const response = await fetch('/api/v1/events');  // Adjust the API endpoint if necessary
           const data = await response.json();
+          console.log('Fetched Data:', data);
+          
           allEvents = data.results;
 
           // Filter events that occur after the starting date
           const upcomingEvents = allEvents.filter(event => {
             const eventDate = new Date(event.date);
+            console.log('Checking event date:', eventDate);
             return eventDate > startingDate; // Keep only events after the starting date
           });
 
           // Sort the filtered events by date in ascending order
           upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+          console.log('Upcoming Events:', upcomingEvents);
 
           // Display the next 3 upcoming events
           displayUpcomingEvents(upcomingEvents.slice(0, 3)); // Show the next 3 events
@@ -153,7 +224,8 @@
           // Top part - Image
           const eventImage = document.createElement('div');
           eventImage.classList.add('event-image');
-          eventImage.style.backgroundImage = `url('${event.image || "https://via.placeholder.com/150"}')`;
+          eventImage.style.backgroundImage = `url('${getImageUrlFromArea(event.bannerImage)}')`;
+
 
           // Bottom part - Text content
           const eventContent = document.createElement('div');
@@ -194,6 +266,22 @@
             eventCard.classList.add('visible');
           }, index * 200); // Delay each card for a staggered effect
         });
+      }
+
+      // Function to extract image URL from area
+      function getImageUrlFromArea(area) {
+        if (!area || !area.items || area.items.length === 0) {
+          return 'https://via.placeholder.com/150'; // Fallback image
+        }
+        
+        // Get the first image widget in the area
+        const imageWidget = area.items.find(item => item.type === '@apostrophecms/image');
+        
+        if (imageWidget && imageWidget._url) {
+          return imageWidget._url; // Return the image URL if found
+        }
+        
+        return 'https://via.placeholder.com/150'; // Fallback if no image is found
       }
 
       // Fetch events and display the upcoming ones

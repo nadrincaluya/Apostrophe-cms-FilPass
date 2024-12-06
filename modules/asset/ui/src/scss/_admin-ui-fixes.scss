@@ -1,0 +1,20 @@
+/* Ensure the dropdown stays within the bounds of its container */
+.apos-admin-ui .filter-dropdown {
+    max-width: 100%; /* Prevents the dropdown from exceeding the container width */
+    overflow-x: hidden; /* Ensures no horizontal overflow */
+    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+  }
+  
+  /* Specifically target the dropdown menu and limit its width */
+  .apos-admin-ui .dropdown-menu {
+    max-width: 300px; /* Set a max width for the dropdown to fit the container */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+  }
+  /* Ensure the container holding the dropdown has appropriate width */
+.apos-admin-ui .filter-container {
+    display: flex;
+    justify-content: flex-start; /* Or space-between, depending on your layout */
+    max-width: 100%; /* Make sure it doesn't exceed available space */
+    padding: 10px; /* Adjust padding if needed */
+  }
+  

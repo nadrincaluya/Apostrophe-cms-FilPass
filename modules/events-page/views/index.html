@@ -1,131 +1,257 @@
 {% extends "layout.html" %}
 
 {% block main %}
-
-{% area data.page, 'bannerArea' %}
-<div class="events-page">
-  <div class="events-banner">
-    <h1>Events</h1>
-  </div>
-
-  <div class="events-header">
-    <button class="nav-button" onclick="navigatePrevious()">←</button>
-    <button class="current-month-button" onclick="showCurrentMonth()">Current Month</button>
-    <a href="/calendar">
-      <button class="calendar-view-button">Calendar View</button>
-    </a>
-
-    <button class="nav-button" onclick="navigateNext()">→</button>
-    <h2 id="current-month-label">{{ apos.template.getCurrentMonth() }} {{ apos.template.getCurrentYear() }}</h2>
-  </div>
-
-
-  <div class="event-list" id="event-list" data-month="{{ apos.template.getCurrentMonth() }}" data-year="{{ apos.template.getCurrentYear() }}">
-    {% for event in data.pieces %}
-    {% set eventMonth = event.date | date('MMMM') %}
-    {% set eventYear = event.date | date('YYYY') %}
-    
-    <!-- Only display events that match the current eventMonth and eventYear -->
-    <div class="event-card" data-month="{{ eventMonth }}" data-year="{{ eventYear }}">
-      {% set image = apos.image.first(event.bannerImage) %}
-      {% if image %}
-        {% set imageUrl = apos.attachment.url(image, { width: 328, height: 184 }) %}
-      {% else %}
-        {% set imageUrl = 'https://picsum.photos/200' %}
-      {% endif %}
-
-      <img src="{{ imageUrl }}" alt="{{ event.imageAltText }}" class="img-fluid me-4" style="width: 328px; height: 184px; border-radius: 8px;">
-
-      <div class="event-details">
-        <p class="event-date">{{ event.date | date('D MMMM YYYY') }}</p>
-        <p class="event-date">
-          {% set parts = event.time.split(':') %}
-          {% set hours = parts[0] | int %}
-          {% set minutes = parts[1] %}
-        
-          {% if hours == 0 %}
-            {% set formattedHours = 12 %}
-          {% elseif hours > 12 %}
-            {% set formattedHours = hours - 12 %}
-          {% else %}
-            {% set formattedHours = hours %}
-          {% endif %}
-        
-          {% if minutes | length == 1 %}
-            {% set formattedMinutes = '0' + minutes %}
-          {% else %}
-            {% set formattedMinutes = minutes %}
-          {% endif %}
-        
-          {{ formattedHours }}:{{ formattedMinutes }}
-        </p>
-        
-        
-        
-        <h3><a href="{{ event._url }}">{{ event.title }}</a></h3>
-        <p>{{ event.description }}</p>
-      </div>
+  {% area data.page, 'bannerArea' %}
+  <div class="events-page">
+    <div class="events-banner">
+      <h1>Events</h1>
     </div>
-    {% endfor %}
+
+    <div class="events-header">
+      <button class="nav-button" onclick="navigatePrevious()">←</button>
+      <button class="current-month-button" onclick="showCurrentMonth()">Current Month</button>
+      <a href="/calendar">
+        <button class="calendar-view-button">Calendar View</button>
+      </a>
+      <button class="nav-button" onclick="navigateNext()">→</button>
+
+      <h2 id="current-month-label">{{ apos.template.getCurrentMonth() }} {{ apos.template.getCurrentYear() }}</h2>
+
+      <!-- Timezone Selector -->
+      <div class="timezone-selector">
+        <label for="timezone-select">Select Timezone:</label>
+        <select id="timezone-select" onchange="changeTimezone(event)">
+          <option value="default" selected>Do nothing (Default)</option>
+          <option value="UTC">UTC</option>
+          <option value="America/Chicago">Chicago (UTC-6)</option>
+          <option value="America/New_York">New York (UTC-5)</option>
+          <option value="Europe/London">London (UTC+0)</option>
+          <option value="Asia/Kolkata">Kolkata (UTC+5:30)</option>
+          <option value="Asia/Manila">Philippines</option>
+          <!-- Local Timezone will be added here -->
+        </select>
+      </div>
+
+    <div class="event-list" id="event-list" data-month="{{ apos.template.getCurrentMonth() }}" data-year="{{ apos.template.getCurrentYear() }}">
+      {% for event in data.pieces %}
+        {% set eventMonth = event.date | date('MMMM') %}
+        {% set eventYear = event.date | date('YYYY') %}
+        
+        <div class="event-card" data-month="{{ eventMonth }}" data-year="{{ eventYear }}">
+          {% set image = apos.image.first(event.bannerImage) %}
+          {% if image %}
+            {% set imageUrl = apos.attachment.url(image, { width: 328, height: 184 }) %}
+          {% else %}
+            {% set imageUrl = 'https://picsum.photos/200' %}
+          {% endif %}
+
+          <img src="{{ imageUrl }}" alt="{{ event.imageAltText }}" class="img-fluid me-4" style="width: 328px; height: 184px; border-radius: 8px;">
+
+          <div class="event-details">
+            <p class="event-date">{{ event.date | date('D MMMM YYYY') }}</p>
+            <p class="event-time" data-time="{{ event.startTime }}" data-timezone="{{ event.timezone }}" data-date="{{ event.date }}">
+              {% set parts = event.startTime.split(':') %}
+              {% set hours = parts[0] | int %}
+              {% set minutes = parts[1] %}
+              
+              {% if hours == 0 %}
+                {% set formattedHours = 12 %}
+                {% set period = 'AM' %}
+              {% elseif hours > 12 %}
+                {% set formattedHours = hours - 12 %}
+                {% set period = 'PM' %}
+              {% elseif hours == 12 %}
+                {% set formattedHours = hours %}
+                {% set period = 'PM' %}
+              {% else %}
+                {% set formattedHours = hours %}
+                {% set period = 'AM' %}
+              {% endif %}
+              
+              {% if minutes | length == 1 %}
+                {% set formattedMinutes = '0' + minutes %}
+              {% else %}
+                {% set formattedMinutes = minutes %}
+              {% endif %}
+              
+              <span>{{ formattedHours }}:{{ formattedMinutes }} {{ period }}</span> 
+              <span class="timezone">{{ event.timezone }}</span>
+            </p>
+
+
+            <h3><a href="{{ event._url }}">{{ event.title }}</a></h3>
+            <p>{{ event.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
 
-<script>
-  let currentMonthIndex = new Date().getMonth();  // Get current month index (0-11)
-  let currentYear = new Date().getFullYear();     // Get current year
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.42/moment-timezone-with-data.min.js"></script>
 
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June', 
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  <script>
+    console.log("Script loaded");
 
-  function updateMonth() {
-    document.getElementById("current-month-label").textContent = `${months[currentMonthIndex]} ${currentYear}`;
-    // Update the data-month and data-year attributes of the event-list container
-    document.getElementById("event-list").setAttribute("data-month", months[currentMonthIndex]);
-    document.getElementById("event-list").setAttribute("data-year", currentYear);
-    filterEventsByMonthAndYear(months[currentMonthIndex], currentYear);
-  }
-
-  function navigateNext() {
-    if (currentMonthIndex === 11) {  // If December is next
-      currentMonthIndex = 0;  // Reset to January
-      currentYear += 1;       // Increment year
-    } else {
-      currentMonthIndex += 1; // Move to the next month
-    }
-    updateMonth();
-  }
-
-  function navigatePrevious() {
-    if (currentMonthIndex === 0) {  // If January is previous
-      currentMonthIndex = 11;  // Reset to December
-      currentYear -= 1;        // Decrement year
-    } else {
-      currentMonthIndex -= 1;  // Move to the previous month
-    }
-    updateMonth();
-  }
-
-  function showCurrentMonth() {
-    currentMonthIndex = new Date().getMonth();
-    currentYear = new Date().getFullYear();
-    updateMonth();
-  }
-
-  function filterEventsByMonthAndYear(selectedMonth, selectedYear) {
-    const eventList = document.querySelectorAll('.event-card');
-    eventList.forEach(event => {
-      const eventMonth = event.getAttribute('data-month');
-      const eventYear = event.getAttribute('data-year');
-      if (eventMonth === selectedMonth && eventYear === String(selectedYear)) {
-        event.style.display = 'block';
-      } else {
-        event.style.display = 'none';
+    // Add local timezone to the timezone dropdown and remove duplicates
+    const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const timezoneSelect = document.getElementById('timezone-select');
+    console.log("Local timezone" +localTimezone);
+    // Remove option if it matches the local timezone
+    Array.from(timezoneSelect.options).forEach(option => {
+      if (option.value === localTimezone) {
+        option.remove();
       }
     });
-  }
 
-  document.addEventListener("DOMContentLoaded", updateMonth);
-</script>
+    // Add the local timezone as the first option
+    const localOption = document.createElement('option');
+    localOption.value = localTimezone;
+    localOption.textContent = `${localTimezone} (Local)`;
+    timezoneSelect.insertBefore(localOption, timezoneSelect.firstChild);
+
+    
+
+    let currentMonthIndex = new Date().getMonth();  // Get current month index (0-11)
+    let currentYear = new Date().getFullYear();     // Get current year
+
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June', 
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    // Update the displayed month and filter events
+    function updateMonth() {
+      document.getElementById("current-month-label").textContent = `${months[currentMonthIndex]} ${currentYear}`;
+      document.getElementById("event-list").setAttribute("data-month", months[currentMonthIndex]);
+      document.getElementById("event-list").setAttribute("data-year", currentYear);
+      filterEventsByMonthAndYear(months[currentMonthIndex], currentYear);
+    }
+
+    // Navigate to the next month
+    function navigateNext() {
+      if (currentMonthIndex === 11) {
+        currentMonthIndex = 0;
+        currentYear += 1;
+      } else {
+        currentMonthIndex += 1;
+      }
+      updateMonth();
+    }
+
+    // Navigate to the previous month
+    function navigatePrevious() {
+      if (currentMonthIndex === 0) {
+        currentMonthIndex = 11;
+        currentYear -= 1;
+      } else {
+        currentMonthIndex -= 1;
+      }
+      updateMonth();
+    }
+
+    // Show the current month
+    function showCurrentMonth() {
+      currentMonthIndex = new Date().getMonth();
+      currentYear = new Date().getFullYear();
+      updateMonth();
+    }
+
+    // Filter events by the selected month and year
+    function filterEventsByMonthAndYear(selectedMonth, selectedYear) {
+      const eventList = document.querySelectorAll('.event-card');
+      eventList.forEach(event => {
+        const eventMonth = event.getAttribute('data-month');
+        const eventYear = event.getAttribute('data-year');
+        if (eventMonth === selectedMonth && eventYear === String(selectedYear)) {
+          event.style.display = 'block';
+        } else {
+          event.style.display = 'none';
+        }
+      });
+    }
+
+    // Change the timezone of the event times
+    function changeTimezone(event) {
+      const selectedTimezone = event.target.value;
+      console.log("Selected timezone:", selectedTimezone);
+
+      const eventTimes = document.querySelectorAll('.event-time');
+      
+      // If the selected value is 'default', do nothing
+      if (selectedTimezone === 'default') {
+        revertTimezoneChanges();
+        return;
+      }
+
+      eventTimes.forEach(eventTime => {
+        const originalTime = eventTime.getAttribute('data-time'); // e.g., "10:21:00"
+        const originalTimezone = eventTime.getAttribute('data-timezone'); // e.g., "UTC"
+        const date = eventTime.getAttribute('data-date'); // e.g., "2024-12-19"
+
+        if (!originalTime || !originalTimezone || !date) {
+          console.error("Missing data for event:", eventTime);
+          return;
+        }
+
+        // Combine date and time into ISO format
+        const isoDatetime = `${date}T${originalTime}`;
+
+        // Convert to the selected timezone
+        const formattedTime = moment.tz(isoDatetime, originalTimezone)
+          .tz(selectedTimezone)
+          .format('h:mm A'); // Adjust format as needed
+
+        // Update DOM
+        const timeSpan = eventTime.querySelector('span');
+        if (timeSpan) {
+          timeSpan.textContent = formattedTime;
+        }
+
+        const timezoneSpan = eventTime.querySelector('.timezone');
+        if (timezoneSpan) {
+          timezoneSpan.textContent = selectedTimezone;
+        }
+      });
+    }
+
+    // Revert all changes when the default option is selected
+    function revertTimezoneChanges() {
+      const eventTimes = document.querySelectorAll('.event-time');
+
+      eventTimes.forEach(eventTime => {
+        const originalTime = eventTime.getAttribute('data-time'); // e.g., "10:21:00"
+        const originalTimezone = eventTime.getAttribute('data-timezone'); // e.g., "UTC"
+        const date = eventTime.getAttribute('data-date'); // e.g., "2024-12-19"
+
+        if (!originalTime || !originalTimezone || !date) {
+          console.error("Missing data for event:", eventTime);
+          return;
+        }
+
+        // Combine date and time into ISO format
+        const isoDatetime = `${date}T${originalTime}`;
+
+        // Convert back to original timezone
+        const formattedTime = moment.tz(isoDatetime, originalTimezone)
+          .format('h:mm A');
+
+        // Update DOM
+        const timeSpan = eventTime.querySelector('span');
+        if (timeSpan) {
+          timeSpan.textContent = formattedTime;
+        }
+
+        const timezoneSpan = eventTime.querySelector('.timezone');
+        if (timezoneSpan) {
+          timezoneSpan.textContent = originalTimezone;
+        }
+      });
+    }
+
+    // Initialize month and year
+    updateMonth();
+  </script>
+
 {% endblock %}

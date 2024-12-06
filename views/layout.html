@@ -22,15 +22,15 @@
 {% endblock %}
 
 {% block beforeMain %}
-  <header>
+  <header class="container-fluid">
     {% render topbar.mainArea() %}
   </header>
-  <main class="pr-main original-size-image">
+  <main class="container-fluid px-3">
 {% endblock %}
 
 {% block afterMain %}
   </main>
-  <footer>
+  <footer class="container-fluid">
     {% render footer.mainArea() %}
   </footer>
 {% endblock %}

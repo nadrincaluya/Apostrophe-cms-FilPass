@@ -62,44 +62,49 @@ module.exports = {
         label: 'Category',
         required: true,
         choices: [
-          {
-            label: 'Vehicle',
-            value: 'vehicle'
-          },
-          {
-            label: 'Home & Garden',
-            value: 'home-garden'
-          },
-          {
-            label: 'Appliances',
-            value: 'appliances'
-          },
-          {
-            label: 'Electronics',
-            value: 'electronics'
-          },
-          {
-            label: 'Toys',
-            value: 'toys'
-          }
+          { label: 'Vehicle', value: 'vehicle' },
+          { label: 'Home & Garden', value: 'home-garden' },
+          { label: 'Appliances', value: 'appliances' },
+          { label: 'Electronics', value: 'electronics' },
+          { label: 'Toys', value: 'toys' }
         ]
       },
+      _tags: {
+        type: 'relationship',
+        withType: 'pieces-tags',
+        label: 'Tags',
+        builders: {
+          project: {
+            title: 1,
+            slug: 1
+          }
+        }
+      }
     },
     group: {
       basics: {
         label: 'Basics',
-        fields: ['title', 'date', 'image', 'description']
+        fields: ['title', 'date', 'image', 'description',]
       },
+      category:{
+        label: 'Category and Tags',
+        fields: ['category', '_tags']
+      }
+      ,
       banner: {
         label: 'Banner',
         fields: ['bannerArea']
-      },
-    },
+      }
+    }
   },
   filters: {
     add: {
       category: {
         label: 'Category'
+      },
+      _tags: {
+        label: 'Tags',
+        component: 'AposArrayColumn'
       }
     }
   },
@@ -107,7 +112,8 @@ module.exports = {
     add: {
       category: {
         label: 'Category'
-      }
+      },
+     
     }
   }
 };

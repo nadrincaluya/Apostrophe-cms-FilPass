@@ -12,10 +12,19 @@ module.exports = {
         type:'area',
         label: 'Content area',
         options: {
-          widgets: {
-            image:{},
-
-          },
+          widgets: fullConfig
+      }
+    },
+    bannerImage: {
+      type: 'area',
+      label: 'Image',
+      max: 1,
+      options: {
+        widgets: {
+          '@apostrophecms/image': {
+            size: 'one-sixth'
+          }
+        }
       }
     },
     

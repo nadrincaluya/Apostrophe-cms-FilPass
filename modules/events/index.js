@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 module.exports = {
   extend: '@apostrophecms/piece-type',
   options: {
@@ -25,11 +27,17 @@ module.exports = {
         label: 'Event Date',
         required: true,
       },
-      time: {
+      startTime: {
         type: 'time',
-        label: 'Event Time',
+        label: 'Start of Event Time',
         required: true,
       },
+      endTime:{
+        type:'time',
+        label:'End of Event Time',
+          
+      }
+      ,
       description: {
         type: 'string',
         label: 'Short Description',
@@ -44,8 +52,77 @@ module.exports = {
           },
         },
       },
-     
+     timezone: {
+      label: 'Timezone',
+      type: 'select',
+      choices: [
+      { value: 'Asia/Manila', label: 'Asia/Manila' },
+      { value: 'America/Chicago', label: 'America/Chicago' },
+      { value: 'America/New_York', label: 'America/New_York' },
+      { value: 'Europe/London', label: 'Europe/London' },
+      { value: 'Asia/Kolkata', label: 'Asia/Kolkata' },
+      
+        ],
+        required: true,
+        htmlHelp: `
+        <p>
+          Select the timezone for this event. Your current local time and timezone are displayed below for reference:
+        </p>
+        <p>Local Time: <span id="local-time">Loading...</span></p>
+        <p>Timezone: <span id="local-timezone">Loading...</span></p>
+
+      `
+      },
+      category: {
+        type: 'select',
+        label: 'Category',
+        required: true,
+        choices: [
+          { label: 'Vehicle', value: 'vehicle' },
+          { label: 'Home & Garden', value: 'home-garden' },
+          { label: 'Appliances', value: 'appliances' },
+          { label: 'Electronics', value: 'electronics' },
+          { label: 'Toys', value: 'toys' }
+        ]
+      },
+      _tags: {
+        type: 'relationship',
+        withType: 'pieces-tags',
+        label: 'Tags',
+        builders: {
+          project: {
+            title: 1,
+            slug: 1
+          }
+        }
+      },
     },
+    group:{
+      basics: {
+        label: 'Basics',
+        fields: ['title', 'date', 'bannerImage', 'description','startTime','endTime','timezone', 'category','_tags' ]
+      },  
+  },
+  },
+
+  filters: {
+    add: {
+      category: {
+        label: 'Category'
+      },
+      _tags: {
+        label: 'Tags',
+        component: 'AposArrayColumn'
+      }
+    }
+  },
+  columns: {
+    add: {
+      category: {
+        label: 'Category'
+      },
+
+    }
   },
   apiRoutes(self) {
     return {
@@ -62,7 +139,9 @@ module.exports = {
         }
       }
     };
-  }
+  },
+
  
 
 };
+

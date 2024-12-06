@@ -56,12 +56,39 @@ module.exports = {
           } // Add custom widgets or configurations if needed
         },
         required: true
+      },
+      category: {
+        type: 'select',
+        label: 'Category',
+        required: true,
+        choices: [
+          { label: 'Vehicle', value: 'vehicle' },
+          { label: 'Home & Garden', value: 'home-garden' },
+          { label: 'Appliances', value: 'appliances' },
+          { label: 'Electronics', value: 'electronics' },
+          { label: 'Toys', value: 'toys' }
+        ]
+      },
+      _tags: {
+        type: 'relationship',
+        withType: 'pieces-tags',
+        label: 'Tags',
+        builders: {
+          project: {
+            title: 1,
+            slug: 1
+          }
+        }
       }
     },
     group: {
       basics: {
         label: 'Basics',
-        fields: [ 'title', 'date', 'image', 'description' ]
+        fields: [ 'title', 'date', 'image', 'description']
+      },
+      category:{
+        label: 'Category and Tags',
+        fields: ['category', '_tags']
       },
       banner: {
         label: 'Banner',
@@ -69,5 +96,31 @@ module.exports = {
       },
     }
   },
-
+  filters: {
+    add: {
+      category: {
+        label: 'Category'
+      },
+      _tags: {
+        label: 'Tags',
+        component: 'AposArrayColumn'
+      }
+    }
+  },
+  columns: {
+    add: {
+      category: {
+        label: 'Category'
+      },
+      _tags: {
+        label: 'Tags',
+        component: 'AposArrayColumn', // Use AposArrayColumn to show the list of tags
+        builders: {
+          project: {
+            name: 1 // Show only the title field of the tag
+          }
+        }
+      }
+    }
+  }
 };

@@ -58,6 +58,35 @@ require('apostrophe')({
     // Default Page Type
     'default-page': {},
 
+    'pieces-tags':{},
+
+    '@apostrophecms/file': {
+      options: {
+       
+      }
+    },
+    '@apostrophecms/image': {
+      options: {
+       
+      }
+    },
+
+    '@apostrophecms/file-tag': {
+      options: {
+       
+      }
+    },
+    '@apostrophecms/image-tag': {
+      options: {
+       
+      }
+    },
+    '@apostrophecms/user':{},
+    '@apostrophecms/group':{},
+    '@apostrophecms/global':{},
+
+    'admin-bar':{},
+
    
   }
 });
