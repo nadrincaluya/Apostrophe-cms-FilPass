@@ -6,12 +6,11 @@ require('apostrophe')({
   bundles: [
     '@bodonkey/rich-text-enhancement' // Example bundle
   ],
-  baseUrl: 'http://localhost:3000',//Change to http domain in production
+  baseUrl: 'http://localhost:3000', // Change to http domain in production
   modules: {
     // Core functionality
     '@apostrophe/headless': {}, // For API support
 
-    
     // Custom Modules
     media: {},
     'media-page': {}, 
@@ -25,7 +24,6 @@ require('apostrophe')({
     'button-widget': {},
     'table-widget': {},
     'navigation-widget': {},
-    'form-widget': {},
     'row-widget': {},
 
     // Events and Calendar
@@ -34,22 +32,22 @@ require('apostrophe')({
     'calendar-page': {},
 
     // SEO and Metadata
-    
     '@apostrophecms/open-graph': {
       options: {
-        baseUrl: 'http://localhost:3000' // Change to http domain in production
+        baseUrl: 'http://localhost:3000', // Change to http domain in production
+        '@apostrophecms/page-type': true,
+        '@apostrophecms/piece-type': true,
       }
     },
 
     '@apostrophecms/seo': {
-      options:{
-        'keywords-seo':{},
+      options: {
+        'keywords-seo': {},
+        '@apostrophecms/page-type': true,
+        '@apostrophecms/piece-type': true,
       }
     },
-    '@apostrophecms/sitemap': {
-     
-    },
-  
+    '@apostrophecms/sitemap': {},
 
     // Overrides and Assets
     'admin-ui-overrides': {}, // For UI overrides (e.g., logo)
@@ -57,36 +55,53 @@ require('apostrophe')({
 
     // Default Page Type
     'default-page': {},
+    'pieces-tags': {},
 
-    'pieces-tags':{},
+    '@apostrophecms/file': {},
+    '@apostrophecms/image': {},
+    '@apostrophecms/file-tag': {},
+    '@apostrophecms/image-tag': {},
+    '@apostrophecms/user': {},
+    '@apostrophecms/group': {},
+    '@apostrophecms/global': {},
 
-    '@apostrophecms/file': {
+    'admin-bar': {},
+    'custom-admin-bar': {},
+
+    // Custom Form Widget (Ensure it is correctly defined and registered)
+    'custom-form-widget': {},
+
+    // Form Module Configuration
+    // The main form module
+    '@apostrophecms/form': {
       options: {
-       
+        shortcut: 'a,f'
       }
     },
-    '@apostrophecms/image': {
+    // The form widget module, allowing editors to add forms to content areas
+    '@apostrophecms/form-widget': {},
+    // Form field widgets, used by the main form module to build forms.
+    '@apostrophecms/form-text-field-widget': {},
+    '@apostrophecms/form-textarea-field-widget': {},
+    '@apostrophecms/form-select-field-widget': {},
+    '@apostrophecms/form-radio-field-widget': {},
+    '@apostrophecms/form-file-field-widget': {},
+    '@apostrophecms/form-checkboxes-field-widget': {},
+    '@apostrophecms/form-boolean-field-widget': {},
+    '@apostrophecms/form-conditional-widget': {},
+  },
+  '@apostrophecms/email': {
       options: {
-       
+        nodemailer: {
+          host: "smtp.gmail.com", // Replace with your SMTP server
+          port: 587,
+          secure: false, // Set to true for port 465, false for other ports
+          service: 'gmail',
+          auth: {
+            user: 'nadrincaluya@gmail.com', // Set in your .env file
+            pass: 'xppv fgax sjsb niry'  // Set in your .env file
+          }
+        }
       }
-    },
-
-    '@apostrophecms/file-tag': {
-      options: {
-       
-      }
-    },
-    '@apostrophecms/image-tag': {
-      options: {
-       
-      }
-    },
-    '@apostrophecms/user':{},
-    '@apostrophecms/group':{},
-    '@apostrophecms/global':{},
-
-    'admin-bar':{},
-
-   
-  }
+    }
 });
