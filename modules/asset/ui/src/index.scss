@@ -40,3 +40,10 @@ module that has a ui/src directory.
 
 @import './scss/main-layout';
 
+@import "./scss/_variables";
+
+@import "./scss/_theme";
+
+@import "./scss/_default-variables";
+
+@import "./scss/forms";

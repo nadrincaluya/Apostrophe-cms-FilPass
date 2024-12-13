@@ -25,4 +25,13 @@
     transform: translateY(0);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
-
+  .btn--primary,
+  .my-form__submit {
+    background: $primary;
+    border: none;
+    color: $white;
+    &:hover {
+      color: $white;
+      background: lighten($primary, 5%);
+    }
+  }

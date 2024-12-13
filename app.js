@@ -68,8 +68,11 @@ require('apostrophe')({
     'admin-bar': {},
     'custom-admin-bar': {},
 
-    // Custom Form Widget (Ensure it is correctly defined and registered)
+
+    // Custom Form Widget 
     'custom-form-widget': {},
+    'form-widget':{},
+
 
     // Form Module Configuration
     // The main form module
@@ -89,8 +92,7 @@ require('apostrophe')({
     '@apostrophecms/form-checkboxes-field-widget': {},
     '@apostrophecms/form-boolean-field-widget': {},
     '@apostrophecms/form-conditional-widget': {},
-  },
-  '@apostrophecms/email': {
+    '@apostrophecms/email': {
       options: {
         nodemailer: {
           host: "smtp.gmail.com", // Replace with your SMTP server
@@ -104,4 +106,6 @@ require('apostrophe')({
         }
       }
     }
+  },
+ 
 });
